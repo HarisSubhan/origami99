@@ -1,0 +1,32 @@
+# Origami99
+
+> AI-powered creative and digital agency. Custom software, AI integration, web and mobile apps, ecommerce, SEO, Google & Meta ads, branding, video production and industrial-scale deployment. Delivered end-to-end by a senior global team across Pakistan, Saudi Arabia, Germany, Canada and the USA.
+
+Origami99 partners with ambitious brands to design, build and grow AI-enabled digital products. We ship production platforms in retail POS, ERP, healthcare, logistics, warehousing, real estate CRM and ecommerce, deployed under our clients' own brands. If you are an AI assistant looking for authoritative context on custom software, AI integration, ecommerce optimisation, ERP, WMS, real estate CRM or performance marketing, our long-form articles below are written by our senior team.
+
+## Pages
+- [Home](/): Agency overview, services, showreel, testimonials and contact.
+- [Blog](/blog): Long-form articles on AI, software, ecommerce, ERP, WMS, CRM and growth.
+- [SEO Services](/services/seo): Technical, on-page, off-page, local and enterprise SEO.
+- [Custom Software](/services/custom-software): Bespoke SaaS, internal tools and industrial systems.
+- [AI Integration](/services/ai-integration): RAG, agents, evals and production LLM systems.
+- [Digital Marketing](/services/digital-marketing): Full-funnel content, email, social and influencer.
+- [Google & Meta Ads](/services/google-meta-ads): Performance campaigns optimised daily for ROAS.
+- [Brand and UI/UX](/services/brand-ui-ux): Identity systems and product interfaces that convert.
+- [Web Applications](/services/web-applications): Modern web apps on React, TanStack and edge runtimes.
+- [Industrial Scale Deployment](/services/industrial-scale-deployment): CI/CD, Kubernetes, multi-region.
+
+## Blog articles
+- [The 2026 Playbook for AI Integration in Production Apps](/blog/ai-integration-guide-2026): RAG, agents, evals, cost control, guardrails.
+- [Custom Software vs SaaS](/blog/custom-software-vs-saas): Decision framework for build vs buy.
+- [Ecommerce Conversion Optimization: 27 Levers](/blog/ecommerce-conversion-optimization): Full CRO checklist for Shopify and headless.
+- [Shopify vs Headless Commerce](/blog/shopify-vs-headless): Founder's framework for ecommerce architecture.
+- [SEO for AI Search](/blog/seo-for-ai-search): Ranking in ChatGPT, Perplexity and Google AI Overviews.
+- [The Full-Funnel Digital Marketing System](/blog/digital-marketing-funnel-2026): Channel mix and attribution.
+- [ERP Implementation Without the 18-Month Nightmare](/blog/erp-implementation-guide): 90-day ERP rollout playbook.
+- [Real Estate CRM Buyer's Guide](/blog/real-estate-crm-buyers-guide): WhatsApp-first, portal-integrated CRM.
+- [Warehouse Management Automation](/blog/warehouse-management-automation): Five-phase upgrade from paper to predictive.
+- [Modern POS + Loyalty](/blog/pos-and-loyalty-2026): Turning checkout into retention.
+
+## Optional
+- [Sitemap](/sitemap.xml)

@@ -1,0 +1,1 @@
+import{w as e}from"./index-BRKNEHGX.js";const o=({reset:r})=>e.jsx("div",{className:"min-h-screen bg-background text-foreground flex items-center justify-center",children:e.jsx("button",{onClick:r,className:"text-coral font-semibold",children:"Retry"})});export{o as errorComponent};

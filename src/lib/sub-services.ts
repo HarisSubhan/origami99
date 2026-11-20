@@ -1,0 +1,1723 @@
+/**
+ * Dedicated sub-service pages — consultative, expert content per capability.
+ * No fake case studies, no fabricated stats, no unverifiable claims.
+ * Every page is honest about trade-offs and when NOT to pick us.
+ */
+import {
+  Code2, Database, Smartphone, Palette, Boxes, Globe, ShoppingBag, FileText,
+  Layers, Target, Megaphone, Video, TrendingUp,
+} from "lucide-react";
+
+export type SubServicePage = {
+  slug: string;                     // full route slug, e.g. "software/custom-software-development"
+  parent: "software" | "web-development" | "digital-marketing";
+  icon: typeof Code2;
+  category: string;                 // eyebrow chip
+  title: string;                    // H1 (2 lines: title + accent)
+  accent: string;
+  lede: string;                     // 1-2 sentence sub
+  intro: {
+    heading: string;
+    body: string[];                 // paragraphs
+  };
+  whatItIs: {
+    heading: string;
+    body: string[];
+    bullets?: string[];
+  };
+  architecture: {
+    heading: string;
+    body: string;
+    // Layered stack diagram: 4-6 layers with sub-items
+    layers: { name: string; items: string[] }[];
+  };
+  features: {
+    heading: string;
+    body: string;
+    items: { title: string; desc: string }[];
+  };
+  approaches: {
+    heading: string;
+    body: string;
+    options: { name: string; best: string; watch: string }[];
+  };
+  mistakes: {
+    heading: string;
+    items: { title: string; desc: string }[];
+  };
+  considerations: {
+    heading: string;
+    body: string;
+    items: { title: string; desc: string }[];
+  };
+  fit: {
+    good: string[];
+    notFor: string[];
+  };
+  scenarios: { role: string; body: string }[];
+  faqs: { q: string; a: string }[];
+  seo: {
+    title: string;
+    description: string;
+  };
+};
+
+// -------------------------- SOFTWARE PILLAR --------------------------
+
+const customSoftware: SubServicePage = {
+  slug: "software/custom-software-development",
+  parent: "software",
+  icon: Code2,
+  category: "Custom Software",
+  title: "Custom software that fits your business",
+  accent: "not the other way round.",
+  lede: "Bespoke web platforms, internal tools and back-office systems engineered around the way your team actually works.",
+  intro: {
+    heading: "Off the shelf gets you 80 percent of the way. That last 20 percent is where the money is.",
+    body: [
+      "Every growing company hits the same wall. A generic CRM cannot model your commission structure. Your ERP does not understand the way your warehouse actually receives goods. The spreadsheet holding your operations together is now three thousand rows and one leaver away from disaster. That gap between what off the shelf tools do and what your business actually does is where custom software pays for itself, usually within twelve months.",
+      "We build software that fits. Not clever software. Not fashionable software. Software your operations team logs into on a Monday morning and stops thinking about because it just works.",
+    ],
+  },
+  whatItIs: {
+    heading: "What custom software really is",
+    body: [
+      "A custom software project is not just an app. It is a working system: a database that matches your real world entities, an API surface that other tools can plug into, a set of workflows that mirror how decisions actually get made, an interface each user role can move through without a manual, and the observability to know when something breaks before your users tell you.",
+      "The best builds are almost invisible. They remove the ten small frictions your team has learned to tolerate, then get out of the way. That is the standard we hold ourselves to.",
+    ],
+    bullets: [
+      "A domain model that reflects your business, not a template",
+      "Role based access that mirrors your org chart",
+      "Automations that replace manual copy paste between tools",
+      "Reporting that answers the questions your leadership actually asks",
+      "Integrations that pull data from what you already run",
+    ],
+  },
+  architecture: {
+    heading: "A stack we can defend, layer by layer",
+    body: "Every layer below is chosen for stability, hiring pool and long term maintainability. We do not chase frameworks. We pick what will still be a good decision in five years.",
+    layers: [
+      { name: "Client", items: ["React", "TypeScript", "Tailwind", "TanStack Query"] },
+      { name: "Edge and BFF", items: ["Vite SSR", "Cloudflare Workers", "Server functions", "Zod validation"] },
+      { name: "API", items: ["Node.js or Go", "REST plus tRPC", "Auth via JWT and refresh", "Idempotent mutations"] },
+      { name: "Data", items: ["PostgreSQL", "Row Level Security", "Migrations in code", "Point in time restore"] },
+      { name: "Infra", items: ["Terraform", "Docker", "Kubernetes or serverless", "Blue green releases"] },
+      { name: "Observability", items: ["Structured logs", "Distributed tracing", "Uptime and SLO alerts", "Error budgets"] },
+    ],
+  },
+  features: {
+    heading: "What lives inside a well built custom system",
+    body: "The specifics vary by industry. The scaffolding does not. Nine features below show up in almost every serious internal platform we ship.",
+    items: [
+      { title: "Multi tenant architecture", desc: "Data isolation between clients or business units, without spinning up a separate database for every account." },
+      { title: "Fine grained permissions", desc: "Roles, groups and per record ownership. A branch manager sees their branch. A regional director sees their region. No one sees everything unless you say so." },
+      { title: "Audit log for every write", desc: "Who changed what, when, and from what device. Non negotiable in finance, healthcare and any regulated domain." },
+      { title: "Reporting and export", desc: "Native dashboards for the questions your team asks weekly. CSV and API export for the ones they ask once a quarter." },
+      { title: "Import and migration tools", desc: "The system arrives with a way to bring your existing spreadsheets in cleanly, not a promise that we will handle it manually later." },
+      { title: "Background jobs", desc: "Long running exports, external syncs and scheduled work handled by a proper queue, not a fragile setTimeout." },
+      { title: "Notifications the users actually want", desc: "Email, in app and mobile push, with per user preferences and quiet hours built in from day one." },
+      { title: "Real integrations", desc: "Webhooks in, webhooks out, plus native connectors for the two or three tools you cannot get rid of." },
+      { title: "A design system", desc: "Not a Figma library that rots. Living tokens, documented components and a page that shows every state of every widget." },
+    ],
+  },
+  approaches: {
+    heading: "Three ways to build. We help you pick.",
+    body: "Not every problem needs a full custom platform. Sometimes a smart configuration of existing tools is faster, cheaper and better. We say so before we quote.",
+    options: [
+      { name: "Full custom build", best: "Complex domain logic, differentiating workflows, high scale, strict compliance", watch: "Higher up front cost, longer time to first release" },
+      { name: "Custom app on a low code core", best: "Internal tools where speed to launch matters more than perfect UX", watch: "Ceiling on complexity, vendor lock in over time" },
+      { name: "Configure and extend an existing product", best: "Standard workflows with light customization, small team", watch: "You pay per seat forever, edge cases cost more than the license" },
+    ],
+  },
+  mistakes: {
+    heading: "The five mistakes that kill most custom projects",
+    items: [
+      { title: "Building the wrong thing", desc: "Skipping discovery to save two weeks. Every dollar not spent understanding the domain is spent three times over during build." },
+      { title: "Modeling the current process, not the ideal one", desc: "Custom software is the moment to fix the workaround, not to encode it in TypeScript." },
+      { title: "Choosing the shiny framework", desc: "The team that has to maintain this in three years will hate you for it. Pick what has a big hiring pool and a boring changelog." },
+      { title: "No observability from day one", desc: "You cannot fix what you cannot see. Logs, traces and error alerts are day one work, not launch week bolt ons." },
+      { title: "Big bang launches", desc: "Six months of building in the dark, then a two week rollout. Ship a thin slice in six weeks, roll to one team, learn, expand." },
+    ],
+  },
+  considerations: {
+    heading: "The things buyers forget to ask about",
+    body: "A working demo is easy. A system that still runs cleanly two years later is a different animal. These are the questions we recommend you ask any vendor, us included.",
+    items: [
+      { title: "Who owns the code and the cloud accounts?", desc: "You do. From day one. Full IP transfer, root access to your AWS or GCP org, every credential in your vault, not ours." },
+      { title: "What happens on the day we take it in house?", desc: "Documented runbooks, onboarding for your new engineer, a handover call series and a 90 day paid support window." },
+      { title: "How is the database backed up and restored?", desc: "Continuous point in time backups, tested restore drills at least quarterly, retention policy in writing." },
+      { title: "How are secrets managed?", desc: "A managed secrets store, no keys in code, quarterly rotation, revocation runbook." },
+      { title: "How do you handle security?", desc: "Threat model in discovery, OWASP top ten covered in review, dependency scans in CI, annual pen test recommended for anything with sensitive data." },
+    ],
+  },
+  fit: {
+    good: [
+      "Operations, sales or finance workflows that cost more than the software would",
+      "A domain your team knows better than any vendor",
+      "A five to seven figure improvement to unlock, not a nice to have",
+      "A stakeholder who can make decisions in the room",
+    ],
+    notFor: [
+      "A CRM that Salesforce or HubSpot already solves for you",
+      "A vague hope that software will fix an unresolved strategy problem",
+      "A three month deadline for a two year project",
+    ],
+  },
+  scenarios: [
+    { role: "50 person logistics company", body: "Dispatch board, driver mobile app, customer portal, tied into your finance system for automatic invoicing. First slice live in eight weeks, replaces four spreadsheets and one Whatsapp group." },
+    { role: "Regional healthcare group", body: "Patient intake, clinician notes, prescription workflow and reporting for the medical director. HIPAA style audit log and role based access from day one." },
+    { role: "B2B distributor with 300 SKUs", body: "Custom order desk with per customer pricing, credit limits and integrated warehouse pick lists. Removes twelve hours of order entry per rep per week." },
+  ],
+  faqs: [
+    { q: "How long does a real custom build take?", a: "A useful first release in six to twelve weeks. A full multi module platform in six to twelve months. We prefer to ship a small slice fast, then compound from there." },
+    { q: "Fixed price or time and materials?", a: "Fixed price for the discovery and the first release. Retainer for the ongoing roadmap. That way you know exactly what you commit before you sign." },
+    { q: "Can we start with a prototype?", a: "Yes. A clickable prototype in Figma or a small technical spike, usually one to two weeks. It answers the two or three questions the team cannot agree on before code exists." },
+    { q: "Do you work with our in house engineers?", a: "Often. We pair, we review, we hand over. Many of our best engagements end with your team owning the product and us stepping back to consulting." },
+    { q: "What if requirements change mid build?", a: "They will. Our contracts price change explicitly with a weekly change log. No surprise invoices, no scope creep dressed up as goodwill." },
+    { q: "Who runs the servers after launch?", a: "You do, or we do on a retainer. Either way the infrastructure lives in your cloud account, deploys are automated, and there is a runbook for every recurring task." },
+    { q: "How do you keep older builds maintainable?", a: "Boring dependencies, high test coverage on the pieces that matter, quarterly upgrade budget for the language and framework." },
+    { q: "Can you take over a build from another vendor?", a: "Yes, once we have done a code review and are honest with you about what is salvageable. Sometimes the answer is rewrite. Sometimes it is a six week stabilisation pass." },
+  ],
+  seo: {
+    title: "Custom Software Development, honest expert build partner | Origami99",
+    description: "Bespoke custom software, internal tools and back office platforms engineered around how your business actually works. Senior team, full IP handover, no lock in.",
+  },
+};
+
+const saas: SubServicePage = {
+  slug: "software/custom-saas-products",
+  parent: "software",
+  icon: Database,
+  category: "Custom SaaS",
+  title: "SaaS products people renew",
+  accent: "not just install.",
+  lede: "Multi tenant SaaS platforms with auth, billing, entitlements and observability engineered right the first time.",
+  intro: {
+    heading: "Most SaaS products fail on plumbing, not features.",
+    body: [
+      "Founders spend the first month arguing about the killer feature. The next six months they discover their entire product velocity is bottlenecked by things that were supposed to be trivial: signup, billing, invitation flows, feature flags, admin tools, refunds, seat management. Every one is a two week rabbit hole. Together they are the reason so many promising SaaS ideas die in beta.",
+      "We build SaaS the way experienced founders wish they had. The unglamorous plumbing gets shipped in the first sprint. That way you spend month two building the thing your customers actually pay for.",
+    ],
+  },
+  whatItIs: {
+    heading: "Custom SaaS is a system, not a screen",
+    body: [
+      "A real SaaS product is a coordinated set of services: identity, tenants, permissions, billing, entitlements, notifications, admin, reporting and support tooling. Miss any one of them and you feel it every day.",
+      "Our first release always includes the full spine of that system, even if the feature set is narrow. It is easier to add features to a healthy skeleton than to bolt a skeleton onto a pile of features.",
+    ],
+  },
+  architecture: {
+    heading: "The reference SaaS stack we ship on",
+    body: "Every choice below is picked to be boring, safe and easy to hire for.",
+    layers: [
+      { name: "Auth and identity", items: ["Email magic link", "OAuth (Google, Microsoft, GitHub)", "SSO ready via SAML or OIDC", "Session revocation"] },
+      { name: "Tenancy", items: ["Row level tenancy", "Per tenant feature flags", "Tenant scoped audit log", "Data export per tenant"] },
+      { name: "Billing", items: ["Stripe or Paddle", "Per seat, per usage, hybrid", "Prorated upgrades and downgrades", "Dunning and grace periods"] },
+      { name: "Entitlements", items: ["Plan feature matrix", "Server side gates", "Trial and grandfather logic", "Overrides for enterprise"] },
+      { name: "Ops", items: ["Admin impersonation with audit", "Refund and credit tools", "Health dashboards", "Ticket integration"] },
+    ],
+  },
+  features: {
+    heading: "The unglamorous eight that decide whether you scale",
+    body: "Every SaaS founder underestimates these. Getting them right in month one is the single highest leverage engineering decision we make.",
+    items: [
+      { title: "Invitation and team management", desc: "Invite by email, role at invite time, resend, revoke, seat cap enforced." },
+      { title: "Impersonation with a paper trail", desc: "Support can log in as a user to reproduce a bug, and every action is stamped with who did what on behalf of whom." },
+      { title: "Feature flags", desc: "Ship features to one tenant, one region, or a percentage of users, from an admin UI, without a deploy." },
+      { title: "Metered usage", desc: "Real counters, idempotent event ingestion, monthly reset, correct invoicing." },
+      { title: "Subscription lifecycle", desc: "Trial, active, past due, cancelled, reactivated. Every transition triggers the right email and the right in product state." },
+      { title: "Data export", desc: "The customer can leave with their data at any time. Trust, not lock in, is the moat." },
+      { title: "In app onboarding", desc: "A first run flow the product manager can edit without a deploy." },
+      { title: "Status page and incident tooling", desc: "Public status page, an incident channel, and a template your on call actually uses at 3am." },
+    ],
+  },
+  approaches: {
+    heading: "Three billing models we can build cleanly",
+    body: "Pick the pricing model that matches how value is delivered, not the one that looked cool on a competitor's site.",
+    options: [
+      { name: "Per seat, per month", best: "Collaboration tools, dashboards, anything where every user is a decision maker", watch: "Punishes teams for adding read only viewers, slows adoption" },
+      { name: "Usage based", best: "APIs, AI tokens, infrastructure, anything where value scales linearly with volume", watch: "Harder to forecast, needs strong usage visibility for the customer" },
+      { name: "Hybrid platform fee plus usage", best: "Enterprise ready SaaS, gives predictability plus upside", watch: "More complex billing, needs a clear plan matrix" },
+    ],
+  },
+  mistakes: {
+    heading: "The five SaaS mistakes we see monthly",
+    items: [
+      { title: "Rolling your own auth", desc: "It is the single most common security incident. Use a proven library or a hosted provider, always." },
+      { title: "Storing prices in the code", desc: "The pricing page has to change without a deploy. Plans, features and prices belong in a database or in Stripe." },
+      { title: "Ignoring tenants until enterprise arrives", desc: "Retrofitting tenancy after launch takes months and breaks in production. Bake it in on day one." },
+      { title: "One giant admin god page", desc: "Admin tools grow faster than customer features. Design them properly from the start or they become the biggest source of accidental data loss." },
+      { title: "No plan for churn", desc: "Cancel flow, reactivate flow, downgrade flow, data retention policy. Ship these before the first paid customer." },
+    ],
+  },
+  considerations: {
+    heading: "Enterprise readiness, without the enterprise price tag",
+    body: "Even bootstrapped SaaS eventually meets a procurement team. The below is what saves you a lost six figure deal.",
+    items: [
+      { title: "SSO from an early stage", desc: "SAML or OIDC support unlocks mid market and enterprise deals. Wire the plumbing early, sell it as a paid feature later." },
+      { title: "Audit log the customer can see", desc: "Not just an internal one. Enterprise security teams will ask." },
+      { title: "Configurable data retention", desc: "Per tenant retention policy, right to delete, exportable audit log." },
+      { title: "IP allow list and forced 2FA", desc: "Small controls that unblock big deals." },
+      { title: "SOC2 aware architecture", desc: "You do not need the certificate on day one. You do need to not paint yourself into a corner." },
+    ],
+  },
+  fit: {
+    good: [
+      "You have found a paying niche and need to build fast without breaking things",
+      "You are graduating from a no code prototype and hitting its limits",
+      "You have raised or bootstrapped and want the ARR machine built right",
+    ],
+    notFor: [
+      "You do not have any paying users and are hoping the product will find the market",
+      "You need a landing page and a waitlist, not a SaaS platform",
+      "You want to avoid billing complexity by making everything free forever",
+    ],
+  },
+  scenarios: [
+    { role: "Vertical SaaS founder", body: "You know the industry cold. We build the multi tenant spine, billing and admin. You focus on the workflows that only you know." },
+    { role: "Agency spinning out a product", body: "You have a manual service that clients love. We productise it, put it behind a login and turn services revenue into ARR." },
+    { role: "Enterprise team building an internal tool that will spin out", body: "Build it multi tenant from day one so the eventual carve out is a config change, not a rebuild." },
+  ],
+  faqs: [
+    { q: "Do we need to build our own billing?", a: "No. Stripe or Paddle handles the money movement. We build the entitlement, plan and lifecycle layer on top." },
+    { q: "How fast can we launch a paid MVP?", a: "Six to nine weeks for a real, billable product with the spine we described. Ten to sixteen weeks for a richer first release." },
+    { q: "Can you handle SOC2 or ISO27001?", a: "We build to be ready. Certification itself is a separate engagement with a specialist auditor. We can recommend partners." },
+    { q: "What if we already have users on a prototype?", a: "We plan the migration inside the build so the cutover is a single, tested step, not a scramble." },
+    { q: "How do we handle a big enterprise custom request?", a: "Feature flag it, price it as an enterprise add on, ship it in a way that does not fork your codebase." },
+    { q: "Who supports the customers?", a: "You do. We build the tooling to make that possible without becoming a bottleneck." },
+  ],
+  seo: {
+    title: "Custom SaaS Development, multi tenant products built right | Origami99",
+    description: "Multi tenant SaaS platforms with auth, tenancy, billing, entitlements and admin engineered in the first sprint. Enterprise ready, no lock in.",
+  },
+};
+
+const mobile: SubServicePage = {
+  slug: "software/mobile-app-development",
+  parent: "software",
+  icon: Smartphone,
+  category: "Mobile Apps",
+  title: "Mobile apps people keep on their home screen",
+  accent: "not screenshot and delete.",
+  lede: "Native and cross platform iOS and Android apps with offline first architecture, store ready pipelines and analytics built in.",
+  intro: {
+    heading: "A mobile app is a promise about how present you will be in your users life.",
+    body: [
+      "Users forgive a slow website. They do not forgive a slow app. If your app takes three seconds to open, drops out of the network without warning or wakes them at 2am with a promo push, it is off the home screen within a week. Every future release becomes an uphill battle.",
+      "We build mobile apps that respect the medium. Fast start, offline capable, quiet by default, respectful of battery, storage and attention.",
+    ],
+  },
+  whatItIs: {
+    heading: "What a real mobile build actually includes",
+    body: [
+      "A mobile project is much more than the app binary. It is a release train, a signing and provisioning setup, an analytics pipeline, a crash reporting tool, a feature flag system, a way to force upgrade when a security fix ships, and a store presence that gets approved without three review rejections.",
+      "We build all of that alongside the product. It is what makes the difference between an app that ships once and an app that keeps improving for years.",
+    ],
+  },
+  architecture: {
+    heading: "Native versus cross platform, the real trade off",
+    body: "There is no universal right answer. There is a right answer for your product, your team and your roadmap. We help you pick.",
+    layers: [
+      { name: "Native iOS (Swift, SwiftUI)", items: ["Best when platform APIs matter", "Best performance and animation quality", "Two codebases to maintain"] },
+      { name: "Native Android (Kotlin, Compose)", items: ["Best when platform APIs matter", "Access to every new OS feature", "Two codebases to maintain"] },
+      { name: "React Native", items: ["One team, both platforms", "Excellent for content and workflow apps", "Native modules when you need them"] },
+      { name: "Flutter", items: ["Consistent UI across platforms", "Great for design led apps", "Growing but smaller hiring pool"] },
+      { name: "Web wrapped", items: ["Fastest for internal tools", "Not appropriate for consumer facing apps", "Store review risk"] },
+    ],
+  },
+  features: {
+    heading: "The eight capabilities every serious app needs",
+    body: "Underneath every polished experience is a set of unglamorous systems working correctly. These are the ones we build in every project.",
+    items: [
+      { title: "Offline first data", desc: "Reads and writes work without a network. Sync reconciles when it returns. No blank screens, ever." },
+      { title: "Push notifications with preferences", desc: "APNs and FCM, respectful defaults, per user quiet hours, deep linking into the right screen." },
+      { title: "Deep and universal links", desc: "A shared link opens the right screen in the app if installed, else the web equivalent. Attribution preserved." },
+      { title: "Auth flow", desc: "Email, phone OTP, Sign in with Apple or Google. Session refresh handled invisibly. Biometrics unlock." },
+      { title: "Analytics with events that mean something", desc: "Screen views, funnel steps, feature usage, event schema documented in code, one source of truth." },
+      { title: "Crash and ANR reporting", desc: "Every crash grouped, symbolicated and prioritised. Session replay for the hardest ones." },
+      { title: "Feature flags and remote config", desc: "Toggle features without a store release. Emergency kill switch for a broken flow." },
+      { title: "Force upgrade", desc: "When a critical fix ships, users can be nudged or blocked from continuing on old versions." },
+    ],
+  },
+  approaches: {
+    heading: "Three release strategies. We plan yours in discovery.",
+    body: "Store review is a schedule, not a suggestion. Every launch plan below accounts for it.",
+    options: [
+      { name: "TestFlight and internal Play track", best: "Small audience, tight feedback loop, weekly releases", watch: "Users get email invites, not organic discovery" },
+      { name: "Public beta on both stores", best: "Growing user base, want feedback but also organic installs", watch: "Reviews count against your public rating" },
+      { name: "Staged rollout to production", best: "Mature app, want to catch regressions before 100 percent", watch: "Requires good analytics and a rollback plan" },
+    ],
+  },
+  mistakes: {
+    heading: "Six mistakes that keep costing app teams money",
+    items: [
+      { title: "Building web UI on a phone screen", desc: "Mobile navigation, gestures and feedback are their own discipline. Do not port a dashboard, redesign it." },
+      { title: "No offline story", desc: "A user on a subway or in an elevator will churn if the app freezes. Design for zero bars from day one." },
+      { title: "Ignoring battery and data", desc: "Chatty background sync, unbatched network calls and always on GPS drain users trust and phones." },
+      { title: "Push spam", desc: "Every unnecessary notification is a notification the user will disable, then delete." },
+      { title: "Underestimating store review", desc: "Sign in requirements, privacy policy links, subscription rules. All of these have to be right or you lose a week." },
+      { title: "Skipping accessibility", desc: "Dynamic type, VoiceOver, TalkBack, contrast. It costs a fraction of the total build and doubles your addressable market." },
+    ],
+  },
+  considerations: {
+    heading: "The operational things founders forget",
+    body: "Shipping the app is the start. Everything below is what makes it a product that grows.",
+    items: [
+      { title: "Store accounts and signing", desc: "Your Apple Developer and Google Play accounts, not ours. Certificates and provisioning profiles handed over from day one." },
+      { title: "Privacy manifests and data safety", desc: "Both stores now require detailed data usage disclosures. We write them accurately and update them per release." },
+      { title: "App Tracking Transparency", desc: "iOS attribution reality since 14.5. We plan measurement without depending on IDFA." },
+      { title: "In app purchases and subscriptions", desc: "StoreKit and Google Play Billing done correctly, receipts validated server side, restore purchases handled." },
+      { title: "Regional pricing and languages", desc: "Multi region price tiers, localised copy, right to left layout when needed." },
+    ],
+  },
+  fit: {
+    good: [
+      "Frequent use cases where phone is the primary context (delivery, field service, health, on the go commerce)",
+      "Existing product with strong retention that now needs a native surface",
+      "Push, camera, location or biometrics are core to the experience",
+    ],
+    notFor: [
+      "Low frequency use where a good mobile web page would do",
+      "Testing whether a product idea works, before web validation",
+      "Content that could just as easily live in a browser tab",
+    ],
+  },
+  scenarios: [
+    { role: "Field service business", body: "Native tech app with offline job cards, photo upload, signature capture, live route from dispatch and clock in and out." },
+    { role: "Consumer marketplace", body: "React Native buyer and seller apps sharing 80 percent of the code, native maps and camera, push into deep links." },
+    { role: "Fintech companion app", body: "Native Swift and Kotlin for biometric unlock, secure enclave key storage and platform grade transaction lists." },
+  ],
+  faqs: [
+    { q: "Native or React Native?", a: "React Native for content and workflow apps, native when hardware or performance is core. We tell you which in discovery, honestly." },
+    { q: "Can you handle the store submission?", a: "We build the binaries, write the store metadata, prepare the screenshots and submit under your developer account with you." },
+    { q: "How do updates work after launch?", a: "Weekly or fortnightly release trains, staged rollouts, remote config for the flags. Emergency patches shipped within 24 hours." },
+    { q: "Do you handle subscriptions?", a: "Yes. StoreKit 2 and Play Billing done properly, plus server side receipt validation so you can trust the state." },
+    { q: "What happens if Apple or Google rejects the app?", a: "We fix and resubmit under our engagement, no extra invoice for standard review issues. We plan for it." },
+    { q: "Do you build both iOS and Android?", a: "Almost always. Shipping one platform and not the other in 2026 leaves half your market on the table." },
+  ],
+  seo: {
+    title: "Mobile App Development, iOS and Android done properly | Origami99",
+    description: "Native and cross platform iOS and Android apps with offline first architecture, store ready pipelines and analytics built in. Senior team, full IP handover.",
+  },
+};
+
+const uiux: SubServicePage = {
+  slug: "software/ui-ux-design",
+  parent: "software",
+  icon: Palette,
+  category: "UI and UX Design",
+  title: "Product design that pays for itself",
+  accent: "in the first quarter.",
+  lede: "Research led product design and design systems that convert while feeling inevitable to your users.",
+  intro: {
+    heading: "Good design is not a coat of paint. It is the shortest path between your product and your customer's job.",
+    body: [
+      "Design that wins awards is easy. Design that ships and moves your key metric is not. The two are almost never the same thing. Every project we run starts with two questions: what job is the user hiring this screen to do, and how do we remove every step between them and that outcome.",
+      "The result is UI that feels unremarkable in the best way. Nothing to admire. Nothing to complain about. Users get what they came for and forget the interface existed.",
+    ],
+  },
+  whatItIs: {
+    heading: "What product design actually covers",
+    body: [
+      "Research, information architecture, interaction design, visual design, prototyping, design system engineering and handover. In some projects usability testing, in some accessibility audit, in some motion and micro interaction craft. Not every project needs every phase. Every project needs the phases relevant to it done properly.",
+    ],
+  },
+  architecture: {
+    heading: "How we structure a design engagement",
+    body: "Six phases. Every one has a concrete deliverable. Every deliverable is signed off before we spend money on the next phase.",
+    layers: [
+      { name: "Discovery", items: ["Stakeholder interviews", "User interviews when possible", "Success metrics agreed"] },
+      { name: "IA and flows", items: ["Sitemap", "Task flows", "Content model"] },
+      { name: "Wireframes", items: ["Low fi in Figma", "Reviewed in one hour sessions", "Sign off before visuals"] },
+      { name: "Visual and interaction design", items: ["Design system as we go", "Prototype for key flows", "Handover ready components"] },
+      { name: "Usability testing", items: ["Five user protocol", "Recorded sessions", "Iterate on findings"] },
+      { name: "Handover and support", items: ["Documented tokens", "Storybook or living docs", "Design office hours during build"] },
+    ],
+  },
+  features: {
+    heading: "What a mature design system contains",
+    body: "A design system is not a Figma library. It is a shared language for the whole product team. The below is the minimum for one that will still make sense in two years.",
+    items: [
+      { title: "Design tokens", desc: "Colour, spacing, radius, elevation, motion. Named semantically, shipped in JSON and consumed by code." },
+      { title: "Typography scale", desc: "A capped set of type styles, chosen for legibility across screen sizes, documented with when to use each." },
+      { title: "Component library", desc: "Every state of every widget: default, hover, focus, active, disabled, loading, error. In Figma and in code." },
+      { title: "Layout primitives", desc: "Stacks, grids and containers with defined gaps. Removes the debate about spacing forever." },
+      { title: "Iconography rules", desc: "Line weight, corner radius, sizing scale, when to use fill versus outline." },
+      { title: "Content patterns", desc: "Empty states, error states, loading, success. Written once, reused everywhere." },
+      { title: "Accessibility rules", desc: "Contrast, focus rings, keyboard behaviour and screen reader labels documented per component." },
+      { title: "A living documentation site", desc: "One URL where designers, engineers and PMs can settle every argument." },
+    ],
+  },
+  approaches: {
+    heading: "Three design engagement shapes we run",
+    body: "Pick the one that matches where your product is today. We will tell you honestly.",
+    options: [
+      { name: "Design sprint", best: "New feature or new product, one to two weeks, need alignment fast", watch: "Not a substitute for a full build" },
+      { name: "End to end product design", best: "New product, feature area or serious redesign, four to twelve weeks", watch: "Requires a real research phase, do not skip it" },
+      { name: "Embedded design partner", best: "Ongoing roadmap, quarterly retainer, design pairs with product weekly", watch: "Only works if you have engineering capacity to keep up" },
+    ],
+  },
+  mistakes: {
+    heading: "Six product design mistakes we still see everywhere",
+    items: [
+      { title: "Skipping the wireframe", desc: "Jumping straight to visual costs three times as much when the flow is wrong." },
+      { title: "Designing for stakeholders, not users", desc: "The screen that pleases the CEO in the review is often the one that confuses the customer at 8pm." },
+      { title: "Ignoring the empty state", desc: "The very first thing every new user sees is a blank screen. Design it deliberately." },
+      { title: "Death by micro interaction", desc: "Every hover animation costs a millisecond of attention. Spend that budget where it earns interest." },
+      { title: "One giant Figma file", desc: "Slow, brittle, unshareable. Break the system into modules from the start." },
+      { title: "No handover ritual", desc: "The Figma is finished, the engineer builds something else, everyone is unhappy. Weekly design reviews during build fix this permanently." },
+    ],
+  },
+  considerations: {
+    heading: "Accessibility is a product feature, not a compliance checkbox",
+    body: "Designing accessibly costs a small fraction of the total build. Retrofitting it costs many multiples of that. We build to WCAG 2.2 AA as a baseline in every project.",
+    items: [
+      { title: "Contrast", desc: "Text and interactive states pass 4.5:1 minimum. Tools in the Figma library make this automatic." },
+      { title: "Focus indicators", desc: "Every focusable element has a visible focus ring. Keyboard users see where they are." },
+      { title: "Semantic structure", desc: "Headings, landmarks and roles used correctly. Screen readers actually work." },
+      { title: "Motion respect", desc: "Prefers reduced motion respected. No animation that flashes or shakes without an opt in." },
+      { title: "Content clarity", desc: "Plain language, sensible defaults, error messages that say what to do next." },
+    ],
+  },
+  fit: {
+    good: [
+      "You are building or rebuilding a product where conversion or retention matters",
+      "You have engineering capacity to implement what design ships",
+      "You are ready to make decisions based on user research, not internal opinion",
+    ],
+    notFor: [
+      "You need a logo or a marketing site, not a product design partner",
+      "You want a Figma file to hand to freelancers without design guidance",
+      "You are not willing to test with real users",
+    ],
+  },
+  scenarios: [
+    { role: "SaaS onboarding rescue", body: "Activation is stalling. We audit the current flow, redesign the first ten minutes, prototype, test with five users, ship in three weeks." },
+    { role: "Ecommerce PDP redesign", body: "Add to cart rate is flat. We test hypotheses on 100 users, ship the winner and instrument the whole funnel." },
+    { role: "Internal tool that no one uses", body: "Ops team ignores it. We shadow the team for a day, redesign around actual tasks, ship in six weeks and get real adoption." },
+  ],
+  faqs: [
+    { q: "Do you do brand design too?", a: "Full brand identity lives in a separate engagement. We collaborate closely with brand and often work with an existing identity, extending it into product." },
+    { q: "How much research is enough?", a: "For a first release, five to eight qualitative interviews and a competitive audit. Ongoing, one usability round every two weeks is a healthy cadence." },
+    { q: "Can you work with our engineers directly?", a: "Yes. Weekly design reviews, an async Figma channel and office hours. That is how designs actually ship correctly." },
+    { q: "Do you deliver in Figma?", a: "Figma is our primary tool. We can adapt to Sketch or XD if your team already lives there." },
+    { q: "How do you measure success?", a: "Against the metrics agreed in discovery. Activation rate, task completion time, conversion, retention. Not opinions in a review meeting." },
+    { q: "What about motion and prototypes?", a: "Prototypes for the flows that matter, motion specs for the interactions worth animating. Both delivered as part of the design system." },
+  ],
+  seo: {
+    title: "UI and UX Design, research led product design | Origami99",
+    description: "Research led UI and UX design and design systems that convert while feeling inevitable. Discovery, prototyping, testing and engineered handover.",
+  },
+};
+
+const erp: SubServicePage = {
+  slug: "software/erp-development",
+  parent: "software",
+  icon: Boxes,
+  category: "ERP Development",
+  title: "ERP that fits your operation",
+  accent: "not the other way round.",
+  lede: "Modular finance, inventory, HR and operations platforms that integrate with the systems you already run.",
+  intro: {
+    heading: "Off the shelf ERP is a straitjacket. Custom ERP done wrong is worse.",
+    body: [
+      "The big brand ERPs are impressive on a slide deck. In the wild, most implementations end in one of three places: heavy customisation that costs more than a bespoke build, painful process changes to fit the tool, or an expensive shelf ornament nobody uses.",
+      "The alternative is not to build a monolithic bespoke ERP from scratch. It is to build the two or three modules where you are truly different, integrate cleanly with best in class tools for the rest, and treat the whole thing as a living system rather than a one off project.",
+    ],
+  },
+  whatItIs: {
+    heading: "Modular ERP, not a monolith",
+    body: [
+      "Modern ERP is a set of connected services: finance, inventory, procurement, sales, HR, projects, reporting. You do not need all of them custom. You need the ones that make you money customised, the ones that are commoditised bought or subscribed, and clean interfaces between them so data flows without human copy paste.",
+      "We design your ERP as that mix, honestly.",
+    ],
+  },
+  architecture: {
+    heading: "The modules that show up in almost every build",
+    body: "Not every business needs all of them from day one. Sequencing matters as much as scope.",
+    layers: [
+      { name: "Finance", items: ["Chart of accounts", "Invoicing and AR", "Bills and AP", "GL, journals, reconciliation"] },
+      { name: "Inventory and warehousing", items: ["SKU master", "Locations and bins", "Stock movements", "Cycle counts and adjustments"] },
+      { name: "Procurement", items: ["Purchase orders", "Supplier scorecards", "Approval workflows", "Goods receipt"] },
+      { name: "Sales and CRM", items: ["Quotes and orders", "Per customer pricing", "Credit limits", "Pipeline where appropriate"] },
+      { name: "HR and payroll integration", items: ["Employee master", "Attendance and shifts", "Leave workflows", "Payroll export"] },
+      { name: "Reporting and BI", items: ["Native dashboards", "Scheduled reports", "Ad hoc SQL for finance", "BI tool integration"] },
+    ],
+  },
+  features: {
+    heading: "What separates a real ERP from a spreadsheet with a login",
+    body: "These are the differences you feel on day 400, not day 1.",
+    items: [
+      { title: "Immutable transactions", desc: "Every financial event is a journal entry. Corrections happen as new entries, never as edits. Auditors love this." },
+      { title: "Approval workflows", desc: "Purchase orders over a threshold, discounts over a margin, refunds over an amount, all routed to the right approver with a paper trail." },
+      { title: "Multi entity and multi currency", desc: "Group consolidation, intercompany transactions, foreign exchange handled correctly." },
+      { title: "Costing methods", desc: "FIFO, weighted average or standard cost, applied consistently across every stock movement." },
+      { title: "Period close", desc: "Monthly close checklist inside the system, with a lock so no one edits a closed period." },
+      { title: "Integrations", desc: "Bank feeds, payment gateways, shipping providers, marketplaces. All with retries, dead letter queues and monitoring." },
+      { title: "Row level permissions", desc: "A branch manager sees their branch. A regional director sees their region. Data scoped to the org chart, not just the login." },
+    ],
+  },
+  approaches: {
+    heading: "Three ERP paths. We pick the honest one for you.",
+    body: "The right answer often is a mix.",
+    options: [
+      { name: "Full custom ERP", best: "Highly differentiated operation, existing tools force expensive workarounds", watch: "Multi year commitment, needs an internal champion" },
+      { name: "Extend an existing ERP", best: "A modern ERP like Odoo or NetSuite covers 80 percent, you build the missing 20 as modules", watch: "Vendor lock in and licence costs grow with scale" },
+      { name: "Hub and spoke", best: "Keep best in class tools per function, build a middleware and reporting layer that unifies them", watch: "Requires strong integration engineering" },
+    ],
+  },
+  mistakes: {
+    heading: "The seven ERP mistakes we help clients avoid",
+    items: [
+      { title: "Rebuilding everything", desc: "Even the modules that were fine. Scope discipline saves years." },
+      { title: "Big bang cutover", desc: "One weekend to go live is where dreams go to die. Parallel run every core process for at least a month." },
+      { title: "Skipping master data cleanup", desc: "Bad SKU codes and duplicate customers make every future report a lie. Clean before you migrate." },
+      { title: "Forgetting the humans", desc: "The best system in the world fails if the team is not trained. Change management is not optional." },
+      { title: "Reporting as an afterthought", desc: "Reporting is what makes ERP valuable. Design the reports before the data model." },
+      { title: "No period close discipline", desc: "If any user can edit last month, your accounts are not really accounts." },
+      { title: "Ignoring integrations", desc: "Data that has to be manually re entered will be, wrongly, forever." },
+    ],
+  },
+  considerations: {
+    heading: "The questions to ask before you sign anything",
+    body: "Any serious ERP conversation should answer all of these before code starts.",
+    items: [
+      { title: "Where is our real bottleneck?", desc: "The module that unlocks the most value first. Everything else waits." },
+      { title: "What is the master data plan?", desc: "How do we clean, migrate and govern the data going in? This is often half the total effort." },
+      { title: "Who owns the change?", desc: "One senior operator on your side who can decide on the fly. Without this, nothing ships." },
+      { title: "How do we train and support?", desc: "Onboarding, in system help, a short weekly office hour with the vendor during rollout." },
+      { title: "What is the phased rollout?", desc: "One branch, then a region, then everyone. Not one weekend." },
+    ],
+  },
+  fit: {
+    good: [
+      "Multi entity or multi region operations where existing tools do not scale",
+      "Complex costing, pricing or approval rules that generic tools cannot model",
+      "You have an internal champion who can lead the rollout",
+    ],
+    notFor: [
+      "Under 20 people with simple processes, use an off the shelf tool",
+      "You want to skip discovery to save time and money",
+      "You have no one internally who can own the project",
+    ],
+  },
+  scenarios: [
+    { role: "Regional distributor", body: "Custom order desk, per customer pricing, credit checks and warehouse integration. Ships in three modules over six months, each replacing a spreadsheet." },
+    { role: "Multi brand retailer", body: "Central inventory, per brand storefronts, unified finance and BI. Odoo core, custom pricing and promotion engine on top." },
+    { role: "Contract manufacturer", body: "Job costing, materials planning, quality control and shipping documents. Fully custom, integrated with the finance package they already run." },
+  ],
+  faqs: [
+    { q: "Do you replace SAP or NetSuite?", a: "Sometimes. Often we extend or integrate. We do not sell a rebuild that does not save you real money." },
+    { q: "How long does a real ERP project take?", a: "The first module in three to five months. A full core in twelve to eighteen. Never a big bang." },
+    { q: "Can we start small?", a: "Yes, always. Pick the module that hurts most. Ship it. Learn. Extend." },
+    { q: "What about compliance?", a: "GAAP, IFRS, VAT, GST, e invoicing, local tax rules. Everything designed to the regime your business operates under." },
+    { q: "Who owns the data?", a: "You do. Your cloud, your database, your backups, your keys." },
+    { q: "What if we outgrow you?", a: "You should. Handover to your in house team is part of every retainer. We do not build dependency into the contract." },
+  ],
+  seo: {
+    title: "ERP Development, modular finance and operations platforms | Origami99",
+    description: "Modular ERP for finance, inventory, procurement and HR that integrates cleanly with the systems you already run. No big bang. No vendor lock in.",
+  },
+};
+
+// -------------------------- WEB PILLAR --------------------------
+
+const customWeb: SubServicePage = {
+  slug: "web-development/custom-web-development",
+  parent: "web-development",
+  icon: Code2,
+  category: "Custom Web",
+  title: "Hand coded web experiences",
+  accent: "engineered to convert.",
+  lede: "React and Next.js websites and web apps built for speed, SEO and marketers who do not want to file a ticket.",
+  intro: {
+    heading: "Custom is not a luxury. For most serious brands it is the cheapest option over three years.",
+    body: [
+      "Off the shelf website builders charge modest amounts per month, and every feature is a subscription. Add commerce, a CMS, a form builder, analytics, A B tests, personalisation, and the monthly cost quietly overtakes a hand coded site inside 24 months. Then it keeps climbing.",
+      "The bigger cost is subtler. Every marketing idea that is not built in becomes a compromise, a hack or a request the engineering team quietly deprioritises. Custom builds remove that ceiling.",
+    ],
+  },
+  whatItIs: {
+    heading: "What we mean by custom",
+    body: [
+      "Hand written React or Next.js, an intentional CMS choice, edge delivery, real analytics, structured data by default, an accessibility baseline, and a CI pipeline that catches regressions before they ship. Not a stack of plugins on top of a template.",
+    ],
+  },
+  architecture: {
+    heading: "Our reference custom stack",
+    body: "Chosen for speed to launch, long term hiring pool and how well each piece plays with the others.",
+    layers: [
+      { name: "Framework", items: ["React", "TanStack Start or Next.js", "TypeScript", "Tailwind"] },
+      { name: "Content", items: ["Sanity", "Contentful", "Payload", "MDX for docs"] },
+      { name: "Commerce (optional)", items: ["Shopify Storefront API", "Stripe or Paddle", "Headless cart"] },
+      { name: "Edge", items: ["Cloudflare Workers", "Vercel or Netlify", "Image CDN"] },
+      { name: "Marketing", items: ["GA4 with GTM", "Meta CAPI server side", "Landing page A B toolkit"] },
+    ],
+  },
+  features: {
+    heading: "What comes standard in every custom build",
+    body: "The absence of these is what makes template sites feel cheap over time.",
+    items: [
+      { title: "Sub one second LCP", desc: "Image pipeline, code splitting and edge caching engineered together. Not a checkbox at the end." },
+      { title: "SEO ready", desc: "Semantic HTML, structured data, per page metadata, sitemap, robots and internal links designed with intent." },
+      { title: "CMS your team actually uses", desc: "Editorial roles, previews, scheduled publishing, image uploads with responsive delivery." },
+      { title: "Accessibility baseline", desc: "WCAG 2.2 AA. Colour contrast, focus, keyboard flow, semantic landmarks." },
+      { title: "Analytics done right", desc: "GA4 with a clean event taxonomy, GTM for tag management, server side events where privacy allows." },
+      { title: "Forms that work", desc: "Spam protection, honeypots, server validation, delivery to your CRM and email, plus a stored audit trail." },
+      { title: "Redirect and 404 hygiene", desc: "Every migration ships with a full redirect map. Errors monitored." },
+      { title: "Ready for A B tests", desc: "First class feature flag and split test integration from day one." },
+    ],
+  },
+  approaches: {
+    heading: "SSG, SSR, ISR. When to use what.",
+    body: "Rendering strategy is the single decision that most affects speed and SEO. We pick per page, not per site.",
+    options: [
+      { name: "Static generation", best: "Marketing pages, blog, product listings that change daily not hourly", watch: "Not great for personalisation" },
+      { name: "Server side rendering", best: "Logged in dashboards, personalised experiences, dynamic pricing", watch: "Higher hosting cost, needs caching plan" },
+      { name: "Incremental static regeneration", best: "Product pages, editorial content, mostly static but frequently updated", watch: "Cache invalidation must be understood and monitored" },
+    ],
+  },
+  mistakes: {
+    heading: "Five expensive custom build mistakes",
+    items: [
+      { title: "Rebuilding without a migration plan", desc: "Losing rankings and revenue because the redirects were an afterthought." },
+      { title: "Choosing a headless CMS marketers hate", desc: "If the editor experience is bad, nothing gets updated, and the whole site rots." },
+      { title: "Ignoring Core Web Vitals until launch", desc: "Retrofitting performance is 5x the cost of building for it from day one." },
+      { title: "Skipping schema", desc: "Structured data is free traffic that most sites leave on the table." },
+      { title: "Analytics as an afterthought", desc: "If you cannot measure it, you cannot improve it. Instrument the funnel before you ship." },
+    ],
+  },
+  considerations: {
+    heading: "Long term ownership beats short term flash",
+    body: "Every choice below is about the site still working, still ranking and still shipping easily two years after launch.",
+    items: [
+      { title: "You own the code", desc: "Full IP, in your repository, deployable from your CI." },
+      { title: "Your team runs the CMS", desc: "No agency tickets required to add a page." },
+      { title: "The stack is hireable", desc: "React, Node, Postgres. Not an obscure framework the last person on the project loved." },
+      { title: "There is a performance budget", desc: "In the CI, checked on every PR. Regressions blocked automatically." },
+      { title: "Content model is stable", desc: "Pages, sections, components. Marketers can build new pages without engineering help." },
+    ],
+  },
+  fit: {
+    good: [
+      "Brands where site performance and content velocity are direct revenue drivers",
+      "Companies with a marketing team that will actually use a good CMS",
+      "Products with a growing set of custom features the template builders cannot support",
+    ],
+    notFor: [
+      "A five page brochure site for a two person business, use Framer or a template",
+      "A brand new company still validating the offer, use Wix or Webflow to test first",
+      "A team that has no capacity to maintain content weekly",
+    ],
+  },
+  scenarios: [
+    { role: "Series A SaaS site", body: "Marketing site with a docs subdomain, blog, careers, changelog. Ships to a green Lighthouse in six weeks, editable by marketing without engineering." },
+    { role: "Multi region enterprise", body: "Localised marketing across three regions, one component library, one CMS, three domains, one performance budget." },
+    { role: "Migration from a bloated WordPress", body: "Preserved every high traffic URL, cut LCP from 4.2 to 0.9 seconds, improved conversions on the top ten pages measurably." },
+  ],
+  faqs: [
+    { q: "Why custom instead of Webflow?", a: "Once your marketing site needs auth, dashboards, complex commerce or a growing docs product, hand coded scales further and cheaper. For a pure marketing site under 30 pages, Webflow is often the right call." },
+    { q: "How long does a custom site take?", a: "Six to eight weeks for a mid size marketing site. Twelve or more for large content operations or bespoke web apps." },
+    { q: "Do you provide hosting?", a: "We deploy to your Vercel, Cloudflare or AWS account. Costs and access stay with you." },
+    { q: "Can our marketers still edit content?", a: "Yes. The CMS is designed for editors. Scheduled publishing, previews, image handling, all included." },
+    { q: "What about migrating an existing site?", a: "Full redirect map, structured data preserved, content migrated in a scripted way, launch monitored for 30 days." },
+    { q: "How do you handle ongoing improvements?", a: "Monthly retainer or ad hoc. Weekly analytics review, prioritised backlog, and a fast lane for landing pages and campaigns." },
+  ],
+  seo: {
+    title: "Custom Web Development, React and Next.js sites that convert | Origami99",
+    description: "Hand coded React and Next.js websites and web apps built for sub second speed, first class SEO and a CMS your marketers actually use.",
+  },
+};
+
+const shopify: SubServicePage = {
+  slug: "web-development/shopify-ecommerce",
+  parent: "web-development",
+  icon: ShoppingBag,
+  category: "Shopify and Ecommerce",
+  title: "Shopify stores built to sell",
+  accent: "not just to launch.",
+  lede: "Custom Shopify themes, headless storefronts, subscription and international commerce engineered for growth.",
+  intro: {
+    heading: "Shopify is the right ecommerce platform for 90 percent of brands. What separates the winners is what you do on top of it.",
+    body: [
+      "The platform itself is world class. The stores built on it are wildly uneven. A great Shopify build is not a theme swap. It is an opinionated set of decisions about product architecture, PDP structure, cart mechanics, checkout, subscriptions, upsells, apps, tags and reporting.",
+      "We build stores that convert on the first visit and retain by the second order.",
+    ],
+  },
+  whatItIs: {
+    heading: "What great Shopify development covers",
+    body: [
+      "Theme architecture, custom sections your merchandiser can rearrange, PDP that answers every objection, cart and checkout tuned for the fewest steps, a curated app stack that does not slow the site down, and reporting that tells your merchandiser what to do next.",
+    ],
+  },
+  architecture: {
+    heading: "The Shopify decisions that matter",
+    body: "Most Shopify mistakes are structural. Get these five right and everything else is optimisation.",
+    layers: [
+      { name: "Theme approach", items: ["Custom Liquid theme", "Theme from a proven base (Dawn, Impulse)", "Headless with Hydrogen or custom"] },
+      { name: "PDP", items: ["Above the fold: name, price, add to cart", "Variant UX designed per product type", "Trust, delivery, returns immediately visible"] },
+      { name: "Cart and checkout", items: ["Drawer or side cart", "Shopify Checkout extensions", "Shop Pay enabled", "Delivery methods rationalised"] },
+      { name: "Apps", items: ["Reviews, subscriptions, upsell, loyalty", "Every app auditable for speed", "Redundant apps removed"] },
+      { name: "Data", items: ["Product taxonomy", "Metafields for structured product data", "Customer tags for segmentation"] },
+    ],
+  },
+  features: {
+    heading: "The eight decisions that lift store revenue",
+    body: "Small in isolation. Compounding when done together.",
+    items: [
+      { title: "PDP information architecture", desc: "The order and prominence of information matches how buyers actually decide. Not a copy paste template." },
+      { title: "Real trust signals", desc: "Reviews near price, shipping and returns explicit, secure checkout signals in the right place." },
+      { title: "Sensible upsells", desc: "Cross sell relevant, not spammy. Post purchase and in cart, split tested." },
+      { title: "Subscription mechanics", desc: "Skip, swap, pause, gift, cancel. Every one done in the customer portal, not by emailing support." },
+      { title: "Search and filter", desc: "Fast, faceted, mobile first. Sorted by conversion by default." },
+      { title: "Speed budget", desc: "Every app measured for its JS weight. Store passes Core Web Vitals on 4G." },
+      { title: "Structured product data", desc: "Metafields properly named, exported to Google Merchant Centre and used for schema." },
+      { title: "Analytics that map to margin", desc: "GA4 plus server side events, product level margin surfaced in reporting." },
+    ],
+  },
+  approaches: {
+    heading: "Custom theme, base theme extension, or headless",
+    body: "Every path is legitimate. The right pick depends on scale, editorial ambition and roadmap.",
+    options: [
+      { name: "Custom Liquid theme from scratch", best: "Brands that want a distinctive experience and have merchandising talent", watch: "Higher build cost, needs a maintenance retainer" },
+      { name: "Extend a great base theme", best: "Fast to launch, easy to hire for, most brands should start here", watch: "Ceiling on how bespoke you can go" },
+      { name: "Headless with Hydrogen or a custom stack", best: "Very high traffic stores, complex content and product needs, editorial commerce", watch: "Higher engineering cost, plan for staffing to maintain" },
+    ],
+  },
+  mistakes: {
+    heading: "The seven Shopify mistakes we fix every month",
+    items: [
+      { title: "App bloat", desc: "Twelve apps loading on every page. Half unused. Store speed dies. Audit ruthlessly." },
+      { title: "Fake urgency", desc: "Countdown timers that reset. Buyers see through it, and it costs you long term trust." },
+      { title: "PDP by committee", desc: "Every stakeholder gets a section. The buyer scrolls past all of them." },
+      { title: "Ignoring mobile", desc: "70 percent of the traffic, often the last thing tested." },
+      { title: "No abandoned cart flow", desc: "The single highest ROI email sequence, missing on more stores than not." },
+      { title: "Untagged customers", desc: "You cannot segment what you do not tag. Tags are your primary lifecycle marketing tool." },
+      { title: "Not using Shopify Markets", desc: "International selling with domain, currency and language done correctly. Free revenue for many brands." },
+    ],
+  },
+  considerations: {
+    heading: "The Shopify ecosystem is a partner, not just a vendor",
+    body: "Use it that way and it pays back.",
+    items: [
+      { title: "Shopify Plus versus core", desc: "Plus unlocks checkout extensibility, wholesale, more scripts and better support. Worth it above roughly $2M annual GMV." },
+      { title: "Shop Pay", desc: "Highest converting checkout on the internet. Turn it on. Do not hide it." },
+      { title: "Klaviyo or similar", desc: "Email and SMS with proper flows: welcome, abandoned cart, post purchase, winback, VIP." },
+      { title: "Google Merchant Centre", desc: "Feeds tied to Shopify with product data enriched by metafields." },
+      { title: "Meta and TikTok integration", desc: "CAPI for server side event tracking, catalogs for dynamic product ads." },
+    ],
+  },
+  fit: {
+    good: [
+      "You have a real product, real photography and something to say",
+      "You want to scale internationally on one platform",
+      "You need speed to launch or replatform without a two year migration",
+    ],
+    notFor: [
+      "Highly complex B2B with heavy negotiated pricing (BigCommerce or custom often fit better)",
+      "Products with intense configurator needs beyond variants",
+      "Purely marketplace models",
+    ],
+  },
+  scenarios: [
+    { role: "DTC brand launching internationally", body: "Shopify Markets, per region storefronts, local payment methods and language. Ships in six to eight weeks, ready for paid media." },
+    { role: "Subscription first brand", body: "Custom PDP with subscribe first pricing, full customer portal for skip and swap, and lifecycle emails per subscription state." },
+    { role: "Editorial commerce brand", body: "Content commerce hybrid on Hydrogen, magazine style landing pages, product pages tightly integrated with story." },
+  ],
+  faqs: [
+    { q: "Custom theme or extend Dawn?", a: "For most first stores, extend Dawn or a great base. For distinctive brands past a certain scale, custom pays off." },
+    { q: "Do we need Shopify Plus?", a: "Not until roughly $2M GMV. Below that, the added cost rarely pays back." },
+    { q: "Can you migrate from WooCommerce or Magento?", a: "Yes. Full product, customer and order migration, plus redirects and SEO preservation." },
+    { q: "What about B2B?", a: "Shopify B2B on Plus works well for many wholesalers. For heavy negotiated pricing, we recommend evaluating alternatives honestly." },
+    { q: "How do you handle apps?", a: "Fewer, better, audited. Every app measured for speed impact." },
+    { q: "Do you build custom apps?", a: "When a public app cannot do the job. We build them in your Shopify org, hand over the code and the app credentials." },
+  ],
+  seo: {
+    title: "Shopify Development, custom stores and headless commerce | Origami99",
+    description: "Custom Shopify themes, headless storefronts, subscriptions and international commerce engineered to convert on the first visit and retain by the second order.",
+  },
+};
+
+const wordpress: SubServicePage = {
+  slug: "web-development/wordpress-development",
+  parent: "web-development",
+  icon: FileText,
+  category: "WordPress",
+  title: "WordPress the way it was meant to be built",
+  accent: "not the way it usually is.",
+  lede: "Fast, secure, editorially rich WordPress builds with headless architecture and speed budgets, engineered for real editors.",
+  intro: {
+    heading: "WordPress powers 40 percent of the web. Most of those sites are slow and insecure. It does not have to be that way.",
+    body: [
+      "The problem with most WordPress sites is not WordPress. It is the accumulation of themes, page builders and plugins layered on top of it by well meaning teams over years. The right way to run WordPress in 2026 is opinionated: a lean theme or a headless front end, a curated plugin set, managed hosting, and a real deployment pipeline.",
+      "Done that way, WordPress is a formidable content platform. Editors love it, engineers can maintain it, and the site is fast and safe.",
+    ],
+  },
+  whatItIs: {
+    heading: "Two modern shapes for WordPress in 2026",
+    body: [
+      "First, classic monolithic WordPress with a lean custom theme, minimal plugins, managed hosting and a proper CI pipeline. Second, headless WordPress where WordPress is the editor and a React or Next.js front end delivers the site. Both are valid. We help you pick.",
+    ],
+  },
+  architecture: {
+    heading: "How we structure a WordPress build",
+    body: "Every layer chosen to be maintainable in five years, not just clever today.",
+    layers: [
+      { name: "Hosting", items: ["Kinsta, WP Engine or managed", "Object cache", "Edge CDN", "Daily backups tested"] },
+      { name: "Theme", items: ["Custom block theme or lean starter", "Blocks, not page builders", "Design tokens in code"] },
+      { name: "Plugins", items: ["ACF Pro for structured content", "Yoast or Rank Math for SEO", "Wordfence or equivalent security", "As few extras as possible"] },
+      { name: "Editor", items: ["Custom blocks per pattern", "Reusable blocks for campaigns", "Role based publishing workflow"] },
+      { name: "Delivery", items: ["Optimised images", "Lazy loaded video", "Critical CSS", "HTTP2 or 3"] },
+    ],
+  },
+  features: {
+    heading: "What editors get in a proper WordPress build",
+    body: "The features below are what turn WordPress from a blog into a serious content platform.",
+    items: [
+      { title: "Custom blocks", desc: "The editor drags in patterns designed for your brand. No random Divi widgets. No off brand layouts." },
+      { title: "Structured content with ACF", desc: "Fields per content type. Not just a big rich text field with hopes." },
+      { title: "Editorial workflow", desc: "Draft, review, schedule, publish. Roles that mean something." },
+      { title: "SEO baked in", desc: "Sitemaps, schema, redirects, canonical tags, per page controls." },
+      { title: "Multilingual", desc: "WPML or Polylang set up cleanly for multi region publishing." },
+      { title: "Membership or paywall (optional)", desc: "For editorial businesses that need subscriber revenue." },
+      { title: "Managed hosting", desc: "PHP updates, WordPress core updates, plugin updates on a schedule, no surprises." },
+      { title: "Real backups", desc: "Off site, tested restore drills, retention policy in writing." },
+    ],
+  },
+  approaches: {
+    heading: "Monolithic, headless, or hybrid",
+    body: "Pick the one that matches your team and roadmap.",
+    options: [
+      { name: "Monolithic WordPress", best: "Content led site, marketing team already knows WordPress, need speed to launch", watch: "Performance ceiling depends on hosting and theme discipline" },
+      { name: "Headless WordPress", best: "High traffic content sites, want a React front end with a WordPress editor", watch: "More moving parts, needs a real engineering owner" },
+      { name: "Hybrid", best: "Main site headless, blog or docs on monolithic, best of both", watch: "More surface area to secure and monitor" },
+    ],
+  },
+  mistakes: {
+    heading: "Seven WordPress mistakes we constantly clean up",
+    items: [
+      { title: "Page builder tax", desc: "Elementor, Divi and WPBakery add DOM weight and slow every page. Move to blocks." },
+      { title: "Plugin sprawl", desc: "Every plugin is a potential security incident and a maintenance liability. Audit twice a year." },
+      { title: "Shared cheap hosting", desc: "The single biggest cause of slow WordPress. Move to managed." },
+      { title: "No staging environment", desc: "Editing plugins on production live. It fails, always, eventually." },
+      { title: "Ignoring security updates", desc: "WordPress vulnerabilities are almost always in outdated plugins. Update on a schedule." },
+      { title: "Uncontrolled image weight", desc: "The main reason WordPress feels slow. Fix with optimisation pipeline and lazy loading." },
+      { title: "No redirect discipline on redesigns", desc: "Every relaunch loses rankings when redirects are an afterthought." },
+    ],
+  },
+  considerations: {
+    heading: "Security is not optional",
+    body: "The below is the minimum baseline in every WordPress engagement we run.",
+    items: [
+      { title: "Two factor for admin", desc: "Non negotiable." },
+      { title: "Least privilege", desc: "Editors are editors. Only one or two administrators, ever." },
+      { title: "Login rate limiting", desc: "Brute force attempts blocked at the edge and in the app." },
+      { title: "Firewall and malware scan", desc: "Wordfence, Sucuri or equivalent. Weekly scans." },
+      { title: "Regular backups tested", desc: "Restore drills quarterly. A backup you have not tested is not a backup." },
+    ],
+  },
+  fit: {
+    good: [
+      "Content led businesses with a serious editorial operation",
+      "Marketing teams already trained on WordPress",
+      "Media companies, education, non profits, professional services",
+    ],
+    notFor: [
+      "Highly transactional ecommerce (Shopify usually wins)",
+      "SaaS product marketing sites (custom or Webflow often better)",
+      "Very small brochure sites (Framer or Wix are faster)",
+    ],
+  },
+  scenarios: [
+    { role: "Publisher", body: "Custom block theme, tight editorial workflow, membership paywall, ranked for thousands of terms without an SEO plugin doing the heavy lifting." },
+    { role: "Regional professional services group", body: "Multi language, multi region WordPress with per branch pages, unified content model and a fast front end." },
+    { role: "Legacy WordPress rescue", body: "Site inherited with 47 plugins, four page builders, three languages. Audit, consolidation and headless migration completed in stages." },
+  ],
+  faqs: [
+    { q: "Is WordPress still a good choice?", a: "Yes, for content led sites, done right. It is the wrong choice for SaaS product sites and transactional ecommerce." },
+    { q: "Headless or monolithic?", a: "Headless if you have engineering capacity and a large content operation. Monolithic if speed to launch and editor familiarity matter more." },
+    { q: "Do you use page builders?", a: "No. Custom blocks give the editor freedom without the performance and lock in tax." },
+    { q: "Can you take over an existing WordPress site?", a: "Yes. Full audit, security cleanup, performance pass and often plugin consolidation as the first engagement." },
+    { q: "What about hosting?", a: "We deploy to your Kinsta, WP Engine or managed WordPress account. We do not resell hosting." },
+    { q: "Multilingual?", a: "WPML or Polylang configured properly for your language and market strategy." },
+  ],
+  seo: {
+    title: "WordPress Development, editorial and enterprise builds | Origami99",
+    description: "Fast, secure, editorially rich WordPress builds with headless architecture and speed budgets. No page builders. No plugin sprawl. Editors love it.",
+  },
+};
+
+const webflowFramer: SubServicePage = {
+  slug: "web-development/webflow-framer",
+  parent: "web-development",
+  icon: Layers,
+  category: "Webflow and Framer",
+  title: "Webflow and Framer",
+  accent: "for teams that ship weekly.",
+  lede: "Design led marketing sites your team can update without ever opening a ticket, launched in weeks, not months.",
+  intro: {
+    heading: "The best marketing team beats the biggest one. Webflow and Framer are how small marketing teams beat big ones.",
+    body: [
+      "There is a category of website that does not need a CMS, a backend, a product engineer or a devops on call. It needs to look excellent, load fast, rank on Google, run experiments and update on the marketer's schedule, not the engineer's. Webflow and Framer are the two best tools in the world for building exactly that.",
+      "We use them not to save money on the build. We use them to give marketing teams velocity for years after launch.",
+    ],
+  },
+  whatItIs: {
+    heading: "Which tool for which site",
+    body: [
+      "Framer is best for beautiful, motion rich marketing sites with light structured content. Webflow is best for larger content operations, richer CMS needs and complex components. Both produce production sites that rank, convert and ship weekly.",
+    ],
+  },
+  architecture: {
+    heading: "Our reference structure",
+    body: "A Webflow or Framer build is not just a project file. It is a discipline.",
+    layers: [
+      { name: "Design system", items: ["Named colour and type styles", "Reusable components", "Documented spacing scale"] },
+      { name: "CMS", items: ["Content model designed with the editor", "Reference fields for related content", "Filter and sort where useful"] },
+      { name: "Interactions", items: ["Purposeful only", "Reduced motion respected", "Performance budget"] },
+      { name: "SEO", items: ["Per page metadata", "Structured data via embed or Webflow native", "Sitemap and robots"] },
+      { name: "Analytics", items: ["GA4 and GTM", "Conversion events tied to CRM", "Form submissions to CRM directly"] },
+    ],
+  },
+  features: {
+    heading: "What we bake into every no code build",
+    body: "The difference between a beautiful demo and a site that earns its keep.",
+    items: [
+      { title: "Editable everything", desc: "Every headline, image, card, testimonial is CMS driven. Marketers change without touching the design." },
+      { title: "Fast on 4G", desc: "Image optimisation, video treated carefully, third party scripts audited." },
+      { title: "Real forms", desc: "Direct integration with HubSpot, Salesforce or your CRM. Not just an email notification." },
+      { title: "A B ready", desc: "Framer variants or Webflow native, plus a plan for real experimentation." },
+      { title: "SEO baked in", desc: "Titles, descriptions, canonical, schema, sitemap, redirects." },
+      { title: "Motion with purpose", desc: "Scroll animation, page transitions, micro interactions that support the message, never distract from it." },
+    ],
+  },
+  approaches: {
+    heading: "When Webflow. When Framer. When neither.",
+    body: "Both tools are excellent. Neither is right for every project.",
+    options: [
+      { name: "Framer", best: "Motion heavy startup sites, portfolios, product launches under 40 pages", watch: "CMS is lighter than Webflow. Complex content models get tight." },
+      { name: "Webflow", best: "Content rich marketing sites, up to a few hundred pages, complex components", watch: "Cost scales with CMS items and traffic" },
+      { name: "Neither", best: "Product SaaS marketing sites past a certain size, editorial businesses, ecommerce, custom apps", watch: "Custom or headless will serve you better long term" },
+    ],
+  },
+  mistakes: {
+    heading: "Five things people get wrong with Webflow and Framer",
+    items: [
+      { title: "Treating them like Photoshop", desc: "They are design systems, not one off canvases. Reusable components matter." },
+      { title: "Ignoring the CMS on day one", desc: "Retrofitting CMS after visual design triples the work." },
+      { title: "Uncontrolled animation", desc: "Every animation costs performance and attention. Budget both." },
+      { title: "No SEO plan", desc: "Framer especially: default settings will not rank. Every page needs deliberate SEO." },
+      { title: "Skipping the handover doc", desc: "Two years later, your marketer will not remember what the components were for. Document them." },
+    ],
+  },
+  considerations: {
+    heading: "Long term ownership",
+    body: "Do this right and the site keeps compounding.",
+    items: [
+      { title: "You own the workspace", desc: "Full account access, billing under your control." },
+      { title: "Design tokens and naming", desc: "So the next designer or agency can pick up cleanly." },
+      { title: "Documented components", desc: "A short Loom per major pattern. Two hours of work, saved a hundred times." },
+      { title: "A migration plan if you outgrow it", desc: "Content is portable. Design is not. We tell you upfront when you will hit the ceiling." },
+    ],
+  },
+  fit: {
+    good: [
+      "Marketing sites under 100 pages",
+      "Design led brands where visual quality matters",
+      "Teams with strong marketers and no dedicated dev capacity",
+    ],
+    notFor: [
+      "Product SaaS with heavy custom features on the marketing site",
+      "Editorial businesses publishing multiple times a day",
+      "Ecommerce beyond a few products",
+    ],
+  },
+  scenarios: [
+    { role: "Seed stage startup marketing site", body: "Framer, twelve pages, motion rich, ranks and converts, marketing runs it entirely after launch." },
+    { role: "B2B agency", body: "Webflow, 40 pages, case study CMS, blog, careers, all editable by the marketing lead." },
+    { role: "Event or launch site", body: "Framer, three weeks from brief to live, motion first, analytics tied to registration flow." },
+  ],
+  faqs: [
+    { q: "Framer or Webflow?", a: "Framer for smaller, motion heavy sites. Webflow for content rich sites with real CMS needs." },
+    { q: "How fast can you launch?", a: "Two to four weeks for Framer, four to eight for Webflow, depending on scope." },
+    { q: "Can we edit after launch?", a: "Yes, that is the point. We hand over a documented workspace and a short training." },
+    { q: "Will it rank on Google?", a: "Yes, with the right setup. Both tools produce fast, semantic HTML if you configure them properly." },
+    { q: "What about hosting?", a: "Both tools host under their own infrastructure. You own the account and the billing." },
+    { q: "When would you say no to Webflow or Framer?", a: "When the roadmap requires product features, auth, complex commerce or heavy custom logic. Then we recommend custom." },
+  ],
+  seo: {
+    title: "Webflow and Framer, design led marketing sites that ship | Origami99",
+    description: "Webflow and Framer builds for teams that need a beautiful, fast, SEO ready site their marketers actually update every week.",
+  },
+};
+
+const wix: SubServicePage = {
+  slug: "web-development/wix-no-code",
+  parent: "web-development",
+  icon: Globe,
+  category: "Wix and No Code",
+  title: "Wix, WordPress.com and lean no code",
+  accent: "for brands that need to move today.",
+  lede: "Fast to launch, easy to update, honestly scoped no code and low code sites for early stage brands and small businesses.",
+  intro: {
+    heading: "Not every business needs a custom build. Some need to be live by Friday.",
+    body: [
+      "Wix, WordPress.com, Squarespace, Framer templates, Shopify starter themes. All of them are tools that can produce a serious, professional web presence in days rather than months. The trick is to know their limits and design within them, not against them.",
+      "We build a lot of these sites for early stage brands, local service businesses and campaigns where speed matters more than uniqueness. Done well they are respectable, ranked, and revenue generating.",
+    ],
+  },
+  whatItIs: {
+    heading: "The honest place of no code",
+    body: [
+      "A great no code site can carry a business from zero to seven figures in revenue. Beyond that, most brands outgrow the tools and migrate. That is fine. Fast to launch, cheap to run, honest about the ceiling.",
+    ],
+  },
+  architecture: {
+    heading: "How we scope a no code build",
+    body: "Small, focused, honest.",
+    layers: [
+      { name: "Discovery", items: ["Two page brief", "Content and photography ready", "Domain and email in your control"] },
+      { name: "Design", items: ["Template chosen carefully", "Brand tokens applied consistently", "Mobile designed first"] },
+      { name: "Build", items: ["Editable structure for your team", "Forms wired to your inbox and CRM", "Analytics installed"] },
+      { name: "SEO baseline", items: ["Titles, descriptions", "Sitemap and robots", "Google Business profile if local"] },
+      { name: "Handover", items: ["Editor training", "Short Loom per page type", "Migration plan if and when you outgrow"] },
+    ],
+  },
+  features: {
+    heading: "What we insist on even in a no code build",
+    body: "Cheap does not have to mean sloppy.",
+    items: [
+      { title: "Your own domain", desc: "Never a subdomain of the builder." },
+      { title: "Analytics from day one", desc: "GA4 configured, not the builder's opaque dashboard." },
+      { title: "Real forms", desc: "Delivered to your CRM and inbox, spam protected." },
+      { title: "Mobile first", desc: "Most traffic is on phones. The site is designed there first." },
+      { title: "Local SEO if relevant", desc: "Google Business Profile, structured data, service area pages." },
+      { title: "Editable, not fragile", desc: "Your team can update copy without breaking layout." },
+    ],
+  },
+  approaches: {
+    heading: "Which no code tool for which project",
+    body: "Every tool has a sweet spot.",
+    options: [
+      { name: "Wix", best: "Small business, service business, straightforward CMS needs", watch: "Design flexibility limited compared to Webflow" },
+      { name: "WordPress.com hosted", best: "Editorial focused, want familiar editor without hosting worries", watch: "Fewer plugins available than self hosted" },
+      { name: "Squarespace", best: "Design led personal brands, photographers, small commerce", watch: "Global scale sites outgrow it quickly" },
+      { name: "Framer templates", best: "Beautiful startup sites with a small budget", watch: "Complex CMS needs will hit ceilings" },
+    ],
+  },
+  mistakes: {
+    heading: "Six mistakes early stage brands make with no code",
+    items: [
+      { title: "Choosing the tool before the content", desc: "The tool serves the content. Not the other way round." },
+      { title: "Trying to look bigger than you are", desc: "Simple, honest and specific beats grand and vague, every time." },
+      { title: "No analytics", desc: "You cannot improve what you cannot measure. Install GA4 on day one." },
+      { title: "Skipping the domain email", desc: "A gmail contact address on your website is a trust killer." },
+      { title: "Ignoring local SEO", desc: "For any local business, Google Business Profile is more important than the website." },
+      { title: "Overbuying features", desc: "You do not need a booking system, a chatbot and a rewards program on day one. Ship the essentials." },
+    ],
+  },
+  considerations: {
+    heading: "Plan for the ceiling",
+    body: "Every no code tool has one. Knowing it upfront saves a stressful migration later.",
+    items: [
+      { title: "Content is exportable", desc: "Copy, images, structured content in a format you can migrate later." },
+      { title: "Domain is yours", desc: "So a migration is a DNS change, not a rebuild." },
+      { title: "Email is yours", desc: "Kept independent of the site builder." },
+      { title: "Payments are yours", desc: "If you sell, keep the Stripe or payment account in your name from day one." },
+    ],
+  },
+  fit: {
+    good: [
+      "Local service businesses",
+      "Early stage brands validating an offer",
+      "Campaign sites and short lived promotions",
+      "Small ecommerce experimenting with a first collection",
+    ],
+    notFor: [
+      "Brands past a certain revenue where the tools cap growth",
+      "Complex commerce or subscription businesses",
+      "Editorial businesses with high publishing volume",
+    ],
+  },
+  scenarios: [
+    { role: "Local trade business", body: "Wix site with service area pages, quote forms and Google Business Profile fully optimised. Live in a week. Ranking locally in a month." },
+    { role: "Newsletter with a website", body: "WordPress.com or Ghost hosted for the writer, editorial workflow, subscribe form, analytics." },
+    { role: "Pop up brand launch", body: "Framer template customised, Shopify starter theme for commerce, analytics tied to paid media." },
+  ],
+  faqs: [
+    { q: "Is no code really professional?", a: "Yes, when it is done deliberately. The tool matters less than the discipline behind the choices." },
+    { q: "How fast can we launch?", a: "One to two weeks for a small business site, three to four for a richer template based build." },
+    { q: "When do we outgrow it?", a: "Usually when the CMS gets too complex, custom features become critical or performance ceilings hurt paid media. Then we migrate." },
+    { q: "Do you handle migration to custom later?", a: "Yes, that is often the second engagement. We plan for it from the start so the handoff is clean." },
+    { q: "Can you help with content and photography?", a: "We can guide, refer photographers and write copy on a separate engagement. Content quality is often the difference between a good and a bad no code build." },
+    { q: "Do you host?", a: "The tool hosts. You own the account and the billing." },
+  ],
+  seo: {
+    title: "Wix and No Code Web Development, honest fast launches | Origami99",
+    description: "Fast to launch, easy to update, honestly scoped no code sites for early stage brands, service businesses and campaigns.",
+  },
+};
+
+// -------------------------- MARKETING PILLAR --------------------------
+
+const googleAds: SubServicePage = {
+  slug: "digital-marketing/google-ads",
+  parent: "digital-marketing",
+  icon: Target,
+  category: "Google Ads",
+  title: "Google Ads run against revenue",
+  accent: "not clicks and impressions.",
+  lede: "Search, Performance Max, YouTube and Display campaigns structured, tracked and optimised weekly against profit, not vanity metrics.",
+  intro: {
+    heading: "Most Google Ads accounts are burning money in ways their owners cannot see.",
+    body: [
+      "Broken conversion tracking, keyword themes fighting each other, brand traffic bought at retail prices, Performance Max hoovering the credit of every other channel and taking the credit for the conversions those channels caused. Every one of these is a leak. Together they compound to accounts that look busy on the surface and lose ground month over month.",
+      "Our first ninety days on a new account is almost always a rebuild disguised as an optimisation. The account works only when the plumbing works.",
+    ],
+  },
+  whatItIs: {
+    heading: "What Google Ads should actually be doing for you",
+    body: [
+      "Google Ads is not one channel. It is at least six: brand search, non brand search, shopping and Performance Max, YouTube, display and remarketing. Each has a different job in your funnel, a different measurement discipline and a different profit ceiling. A serious account treats them accordingly.",
+    ],
+  },
+  architecture: {
+    heading: "The auction, plainly explained",
+    body: "Google Ads is a real time auction. Understanding what you are actually buying is the first step to spending well.",
+    layers: [
+      { name: "Query", items: ["What the user typed", "Match type controls how loosely it maps", "Search terms report shows what really matched"] },
+      { name: "Ad rank", items: ["Bid times quality score times expected impact", "You do not pay per click, you pay per next competitor's ad rank plus one cent", "Quality score is under your control"] },
+      { name: "Placement", items: ["Search partners", "Display partners", "YouTube surfaces", "Discover and Gmail"] },
+      { name: "Conversion", items: ["Client side gtag", "Server side via GA4 or CAPI", "Enhanced conversions for match rate", "Offline conversion upload for CRM tied wins"] },
+    ],
+  },
+  features: {
+    heading: "How a well run Google Ads account looks under the hood",
+    body: "The below is a checklist we use every week on client accounts.",
+    items: [
+      { title: "Conversion tracking that tells the truth", desc: "Server side conversion API, enhanced conversions, offline conversion import from CRM. Match rate above 70 percent." },
+      { title: "Account structure by intent", desc: "Brand, non brand, competitor, prospecting, retargeting, YouTube. Separate campaigns, separate budgets, separate bid strategies." },
+      { title: "Negative keyword hygiene", desc: "Reviewed weekly, shared negative lists at account level, close variants controlled." },
+      { title: "Performance Max managed intentionally", desc: "Fed structured product data, asset groups per intent, brand terms excluded, campaign level results monitored against baseline." },
+      { title: "Landing pages tuned to each campaign", desc: "Every ad group has a page that answers its query. Not a generic homepage." },
+      { title: "Bid strategies that make sense", desc: "Target CPA or ROAS with enough conversion volume, manual CPC when volume is low, portfolio strategies rarely." },
+      { title: "Weekly optimisations tied to a hypothesis", desc: "Every change is a documented test with expected impact. No random tweaking." },
+      { title: "Monthly deep dives", desc: "Query analysis, geo performance, day parting, device performance, competitor auction insights." },
+    ],
+  },
+  approaches: {
+    heading: "Manual, smart bidding, or Performance Max",
+    body: "There is no universal right answer. There is a right mix per account.",
+    options: [
+      { name: "Manual CPC", best: "Low conversion volume, learning phase, tight control", watch: "Does not scale, misses opportunities smart bidding catches" },
+      { name: "Smart bidding (tCPA, tROAS)", best: "Steady conversion volume, clear CPA or ROAS target", watch: "Needs accurate conversion tracking to work" },
+      { name: "Performance Max", best: "Product retailers with strong Merchant Centre data, retail led brands", watch: "Opaque, can cannibalise other campaigns, must be managed with brand exclusions and structured asset groups" },
+    ],
+  },
+  mistakes: {
+    heading: "The nine expensive Google Ads mistakes we fix constantly",
+    items: [
+      { title: "Bidding on your own brand at auction prices", desc: "Competitors bidding on your brand can be worth defending. Always? No. It depends on organic dominance and competitor pressure." },
+      { title: "Performance Max eating credit for organic wins", desc: "Bad attribution setup lets PMax claim conversions that would have happened anyway." },
+      { title: "One conversion action, everything counts", desc: "A form fill and a purchase are not the same conversion. Track and value them differently." },
+      { title: "Broad match with no negatives", desc: "You end up paying for queries your business cannot serve." },
+      { title: "Ignoring search terms report", desc: "The single most valuable weekly view in Google Ads." },
+      { title: "Copy that ignores the query", desc: "Ads that repeat the search query win the click. Ads that ignore it get skipped." },
+      { title: "Landing page mismatch", desc: "Ad promises a specific outcome, page delivers a generic message. Bounce, wasted spend." },
+      { title: "Not using audience signals", desc: "Even in Performance Max, first party audience signals meaningfully improve targeting." },
+      { title: "Optimising against inflated conversion counts", desc: "iOS and browser privacy have distorted client side conversions. Server side or you flying blind." },
+    ],
+  },
+  considerations: {
+    heading: "Attribution in 2026, plainly",
+    body: "The single most misunderstood topic in paid media. The reality is that all attribution is wrong, some is useful.",
+    items: [
+      { title: "GA4 data driven attribution", desc: "Better than last click. Still relies on the same tracking limitations." },
+      { title: "Enhanced conversions", desc: "Sends hashed customer data with the event. Improves match rate materially." },
+      { title: "Offline conversion import", desc: "Ties CRM outcomes back to the click. The only way to optimise long sales cycles." },
+      { title: "Media mix modelling for scale", desc: "Once spend is meaningful, MMM beats platform reported metrics for strategic decisions." },
+      { title: "Incrementality testing", desc: "Geo splits or holdouts occasionally to check whether the spend is really moving the needle." },
+    ],
+  },
+  fit: {
+    good: [
+      "Businesses with clear demand where users search for what you sell",
+      "Retailers with strong Merchant Centre data and margins that support paid",
+      "Service businesses with clear geographic coverage and defined offers",
+      "SaaS with a sales cycle short enough to instrument end to end",
+    ],
+    notFor: [
+      "Brand new categories where nobody is searching for the problem yet (Meta or TikTok make sense first)",
+      "Products with margins that cannot support paid acquisition even at scale",
+      "Businesses without any conversion tracking discipline",
+    ],
+  },
+  scenarios: [
+    { role: "DTC retailer", body: "Rebuilt Merchant Centre feed, restructured Performance Max with brand exclusions, added enhanced conversions and server side CAPI. Cost per purchase visibility improved within eight weeks." },
+    { role: "B2B SaaS", body: "Non brand search targeting high intent problem queries, LinkedIn Ads for warm audiences, CRM tied offline conversion import so bid strategies optimise against pipeline value, not form fills." },
+    { role: "Multi location service business", body: "Geo split campaigns per market, local landing pages, call tracking with dynamic number insertion, weekly optimisation per city." },
+  ],
+  faqs: [
+    { q: "What is a fair minimum media spend?", a: "For meaningful learning across campaigns, roughly ten thousand USD a month or equivalent. Below that, focus on one campaign type." },
+    { q: "How long before results show?", a: "Signals within two to four weeks, stable performance within eight to twelve. Serious accounts compound over months, not days." },
+    { q: "Do you require long contracts?", a: "No. After a 90 day foundation phase we go month to month." },
+    { q: "Do you handle creative?", a: "Yes. Ad copy, image ads, video ads all produced in house or with vetted partners." },
+    { q: "Who owns the ad account?", a: "You do. We work in your Google Ads account under manager access." },
+    { q: "Can you audit our existing account first?", a: "Yes. Paid audit with a written report and specific recommendations, deliverable in one week." },
+  ],
+  seo: {
+    title: "Google Ads Management, run against real revenue | Origami99",
+    description: "Search, Performance Max, YouTube and Display campaigns structured, tracked and optimised weekly against profit. Senior team, honest reporting, no lock in.",
+  },
+};
+
+const metaAds: SubServicePage = {
+  slug: "digital-marketing/meta-ads",
+  parent: "digital-marketing",
+  icon: Target,
+  category: "Meta Ads",
+  title: "Meta Ads that scale",
+  accent: "without imploding.",
+  lede: "Facebook and Instagram campaigns built on a real creative testing framework, server side tracking and Advantage plus done properly.",
+  intro: {
+    heading: "The Meta ecosystem still has the largest and most engaged addressable audience on the internet. Making it profitable is a craft.",
+    body: [
+      "Meta is a creative auction. The best creative wins the lowest costs. The measurement environment is harder than it was in 2020, but not impossible. Server side tracking, conversion API, disciplined attribution and a real creative operation are what separate the accounts that scale from the ones that stall.",
+      "Every serious Meta account we run is really a creative machine wearing a media planner costume.",
+    ],
+  },
+  whatItIs: {
+    heading: "How Meta Ads actually work in 2026",
+    body: [
+      "Advantage plus shopping campaigns and Advantage plus creative dominate. Manual targeting is largely a signal, not a rule. The auction rewards ads that hold attention. Which means creative quality, not audience picking, is the primary lever. Everything downstream (bidding, budgets, attribution) is table stakes.",
+    ],
+  },
+  architecture: {
+    heading: "The Meta stack that works today",
+    body: "Chosen for what actually moves the needle right now.",
+    layers: [
+      { name: "Tracking", items: ["Meta Pixel client side", "Conversions API server side", "Deduplication with event ID", "Consent mode integrated"] },
+      { name: "Account structure", items: ["One or two Advantage plus shopping campaigns", "Prospecting broad", "Retargeting warm audiences", "Retention campaigns for buyers"] },
+      { name: "Creative", items: ["Weekly hooks", "UGC and studio in a mix", "Motion, static and carousel tested against each other", "Iterated on the winners"] },
+      { name: "Landing pages", items: ["Fast, on message", "Mobile first", "Match the promise in the ad exactly"] },
+      { name: "Measurement", items: ["Blended ROAS as primary metric", "Platform reported for direction", "Incrementality for strategy"] },
+    ],
+  },
+  features: {
+    heading: "What a functional Meta account looks like inside",
+    body: "Every account we manage runs against a version of this checklist.",
+    items: [
+      { title: "CAPI and deduplication", desc: "Server side events matched to client side, dedup keys, offline events for the CRM tied wins." },
+      { title: "Real creative pipeline", desc: "New hooks every week, studio and UGC in a mix, motion and static variants of every angle." },
+      { title: "Hook first thinking", desc: "First one to two seconds decide the fate of every ad. Design them ruthlessly." },
+      { title: "Advantage plus intentionally used", desc: "Not as an excuse to abandon structure, but as the workhorse for scale once creative is proven." },
+      { title: "Warm and cold separated for measurement", desc: "So you know how your retargeting is actually performing against baseline." },
+      { title: "Post purchase attribution", desc: "Offline conversion for the CRM tied conversions, so the algorithm optimises for the right outcome." },
+      { title: "Iteration cadence", desc: "Weekly creative reviews with the client, hypothesis driven testing, winners scaled, losers retired without ego." },
+      { title: "Budgets moved on evidence, not vibes", desc: "Advantage plus shopping campaigns get most of the paid budget once proven; new tests get a protected budget." },
+    ],
+  },
+  approaches: {
+    heading: "Three testing frameworks that work in 2026",
+    body: "Pick the one that fits your creative volume and budget.",
+    options: [
+      { name: "Creator concept testing", best: "New brands, need to find angles that work", watch: "Requires meaningful test budget and creative volume" },
+      { name: "Iterative winner scaling", best: "Established brands with proven angles, focused on refresh cadence", watch: "Creative fatigue is real, plan the refresh schedule" },
+      { name: "Full funnel with lifecycle", best: "Ecommerce and DTC brands with strong AOV and email programs", watch: "Requires tight coordination between paid and lifecycle teams" },
+    ],
+  },
+  mistakes: {
+    heading: "Eight Meta mistakes we still see monthly",
+    items: [
+      { title: "Client side tracking only", desc: "Missing 30 to 50 percent of events. CAPI is not optional anymore." },
+      { title: "Judging ads on 24 hour data", desc: "Attribution windows have widened. Give ads 3 to 7 days before killing them." },
+      { title: "Chasing platform ROAS", desc: "Platform ROAS ignores incrementality. Blended ROAS or MER is a truer North Star." },
+      { title: "One creative angle per campaign", desc: "The account is one bad news cycle away from disaster. Diversify angles." },
+      { title: "No hook variation", desc: "Same ad, different thumbnail is not creative testing." },
+      { title: "Complex audience targeting on Advantage plus", desc: "Advantage plus works because it is broad. Do not fight it." },
+      { title: "Ignoring the landing page", desc: "The best ad in the world cannot save a bad landing experience." },
+      { title: "No retention play", desc: "Acquisition is expensive. Retaining a buyer through post purchase and lifecycle is where the margin lives." },
+    ],
+  },
+  considerations: {
+    heading: "The iOS and privacy reality",
+    body: "This is the single biggest source of confusion in Meta accounts. Here is what actually matters.",
+    items: [
+      { title: "Signal loss is real", desc: "Attribution is materially worse than pre 2021. Every serious brand has adjusted expectations." },
+      { title: "Server side events help", desc: "CAPI and offline events recover a meaningful chunk of the lost signal." },
+      { title: "Modelled conversions", desc: "Meta models what it cannot measure directly. Not perfect, but better than blindness." },
+      { title: "Aggregated Event Measurement", desc: "Cap of 8 events per domain. Prioritise them by business value." },
+      { title: "Blended reporting", desc: "Comparing platform reported ROAS to blended MER tells you how much overreporting is happening." },
+    ],
+  },
+  fit: {
+    good: [
+      "DTC brands with visual products and clear positioning",
+      "Consumer services with strong social proof",
+      "B2B brands willing to invest in creative for LinkedIn or Meta hybrid campaigns",
+    ],
+    notFor: [
+      "Brands with weak creative capacity and no interest in building it",
+      "Products with tiny margins that cannot absorb paid CAC",
+      "Services with very small addressable audiences (LinkedIn or search may fit better)",
+    ],
+  },
+  scenarios: [
+    { role: "Growth stage DTC brand", body: "Advantage plus shopping as core, three creative testing campaigns feeding the winners, CAPI plus enhanced customer info for match rate, blended MER dashboard for strategic decisions." },
+    { role: "Consumer service", body: "Warm retargeting from web visitors, look alike prospecting layered on top, dynamic creative with hook variation, call to book directly in ad." },
+    { role: "SaaS with a self serve motion", body: "Meta plus LinkedIn hybrid, conversion optimised for demo requests, server side tracking to Rev Ops, iterated creative around specific ICPs." },
+  ],
+  faqs: [
+    { q: "How much budget do we need to test properly?", a: "Ten thousand USD or equivalent per month unlocks proper creative testing velocity across audiences and angles." },
+    { q: "Do you produce the creative?", a: "Yes. Static, motion, UGC and studio, produced in house or with vetted partners." },
+    { q: "How fast do you scale spend?", a: "As fast as creative performance and blended profit allow. Scale is a consequence of winning creative, not a target in itself." },
+    { q: "What is the reporting cadence?", a: "Live dashboard, weekly Loom, monthly business review." },
+    { q: "Do you handle TikTok too?", a: "Yes, in a separate but coordinated engagement." },
+    { q: "Can you audit our current account?", a: "Yes. Free 30 minute review, paid full audit with written recommendations." },
+  ],
+  seo: {
+    title: "Meta Ads Management, Facebook and Instagram at scale | Origami99",
+    description: "Meta Ads engineered for profit: CAPI, Advantage plus done properly, a real creative pipeline and blended ROAS reporting.",
+  },
+};
+
+const tiktokAds: SubServicePage = {
+  slug: "digital-marketing/tiktok-short-form-ads",
+  parent: "digital-marketing",
+  icon: Video,
+  category: "TikTok and Short Form",
+  title: "TikTok and short form ads",
+  accent: "that earn attention.",
+  lede: "Hook first creative built for the feed, tested to profit inside seven day windows.",
+  intro: {
+    heading: "TikTok and Reels are their own auction, their own language and their own culture. Copying your Meta strategy will fail you.",
+    body: [
+      "Short form is not a placement. It is a medium. The ads that win look like the content around them, not like ads pretending to be content. They earn a second of trust, then a second more, then a click. Every creative decision compounds or destroys that trust.",
+      "We treat short form as a creative discipline with a media budget attached, not the other way round.",
+    ],
+  },
+  whatItIs: {
+    heading: "How short form actually works",
+    body: [
+      "The algorithm decides in the first two to three seconds whether to keep serving the ad or dropping it. Every subsequent second is a decision point. Watch time, replay rate, saves and shares outweigh every classic audience signal. Creative wins or loses everything else.",
+    ],
+  },
+  architecture: {
+    heading: "The short form creative stack",
+    body: "What consistently works in the feed today.",
+    layers: [
+      { name: "Hook", items: ["Pattern break in the first frame", "Text overlay reinforces spoken hook", "Native platform aesthetic"] },
+      { name: "Delivery", items: ["Vertical 9:16", "Fast cuts", "Captions burned in", "Music from platform library"] },
+      { name: "Payoff", items: ["Product in context, not on a plinth", "Real problem, real result", "Social proof shown, not told"] },
+      { name: "Call to action", items: ["Specific and singular", "Reason to act now", "Match the landing page tone"] },
+    ],
+  },
+  features: {
+    heading: "What a mature short form program looks like",
+    body: "The below is what separates volume that works from volume that noise.",
+    items: [
+      { title: "Weekly hook production", desc: "Three to ten new hooks per week, tested cheap, winners scaled." },
+      { title: "Creator ecosystem", desc: "A roster of creators producing organic style ads, briefed tightly, iterated weekly." },
+      { title: "UGC library", desc: "Your customers filming, coached lightly, edited into ad format." },
+      { title: "Studio backstop", desc: "In house studio for the ads UGC cannot cover: demos, features, high production spots." },
+      { title: "Testing framework", desc: "Every ad has a hypothesis and a kill criteria. No creative sits in the account without a job." },
+      { title: "Landing pages that match tone", desc: "The whiplash from a casual ad to a corporate landing page kills conversion." },
+      { title: "Sound design intentional", desc: "Music, voiceover and audio hooks are as important as visuals." },
+      { title: "Trend awareness without cringe", desc: "Not every trend is your brand. Discipline about what to jump on." },
+    ],
+  },
+  approaches: {
+    heading: "Three creative operations, three budgets",
+    body: "Match the operation to the ambition.",
+    options: [
+      { name: "UGC only", best: "New brand testing waters, small budget, willing to iterate scrappy", watch: "Quality control is the hardest thing to enforce" },
+      { name: "UGC plus studio", best: "Growth stage brand, needs volume and range", watch: "Requires creative producer capacity" },
+      { name: "Creator partnerships plus studio plus UGC", best: "Mature brand ready to build a real content engine", watch: "Coordination overhead, needs a strong creative lead" },
+    ],
+  },
+  mistakes: {
+    heading: "Seven short form mistakes we untangle constantly",
+    items: [
+      { title: "Repurposing TV or square social ads", desc: "The feed rejects them within two seconds." },
+      { title: "Overproduced hero content", desc: "The polished spot is often the worst performer. Native beats slick." },
+      { title: "Weak hooks", desc: "The first frame decides everything. Do not bury the hook." },
+      { title: "No sound plan", desc: "80 percent of watchers hear the ad. Music and voice are half the message." },
+      { title: "Testing too few concepts", desc: "Short form is a volume game. Five ads a month is not enough." },
+      { title: "Ignoring saves and shares", desc: "The best long term indicators of a working ad." },
+      { title: "Landing page mismatch", desc: "Casual ad to corporate page is a conversion killer." },
+    ],
+  },
+  considerations: {
+    heading: "Measurement in short form",
+    body: "The platform level metrics tell part of the story. Blended is the truth.",
+    items: [
+      { title: "Blended MER is king", desc: "TikTok reported ROAS is not enough. Compare it to blended over 7 and 30 days." },
+      { title: "Attribution windows matter", desc: "7 day click plus 1 day view is a fair starting point. Adjust by category." },
+      { title: "Delayed conversions are real", desc: "Some categories see conversions days after the last click. Plan measurement windows accordingly." },
+      { title: "Incrementality tests periodically", desc: "Geo splits or brand lift studies to make sure the spend is really moving the needle." },
+    ],
+  },
+  fit: {
+    good: [
+      "Consumer products with visual appeal",
+      "Brands willing to build a real creative operation",
+      "Products with hooks a creator can naturally demonstrate",
+      "B2B with founders willing to be on camera",
+    ],
+    notFor: [
+      "Brands unwilling to iterate creative weekly",
+      "Products with no visual story to tell",
+      "Highly regulated categories with tight creative constraints (still possible, just harder)",
+    ],
+  },
+  scenarios: [
+    { role: "DTC beauty brand", body: "Ten creators producing weekly, in house studio for hero content, three test hooks per week, winners scaled to TikTok, Reels and Shorts simultaneously." },
+    { role: "Consumer app", body: "UGC first, product demonstrated in real scenarios, hooks around specific problems, retargeting sequence built around app install to activation." },
+    { role: "Founder led B2B", body: "Founder on camera weekly, three educational hooks a week, retargeting anyone who watches 50 percent with a specific offer." },
+  ],
+  faqs: [
+    { q: "How much do we need to spend?", a: "For meaningful testing on TikTok, at least five thousand USD a month in media plus a real creative production budget." },
+    { q: "Do you produce the ads?", a: "Yes. UGC network, in house studio and creator partnerships." },
+    { q: "Can you run TikTok Shop?", a: "Yes, if your product fits and TikTok Shop is available in your market." },
+    { q: "What about YouTube Shorts and Instagram Reels?", a: "Winning short form creative usually works across all three surfaces. We plan cross platform." },
+    { q: "How fast do we see results?", a: "First signals in two to four weeks, scaled winners in six to twelve." },
+    { q: "Do we need to be on camera as a founder?", a: "Not required, but often useful in B2B and challenger brands." },
+  ],
+  seo: {
+    title: "TikTok and Short Form Ads, hook first creative that converts | Origami99",
+    description: "TikTok, Instagram Reels and YouTube Shorts creative and media engineered for the feed, tested to profit inside seven day windows.",
+  },
+};
+
+const fullFunnel: SubServicePage = {
+  slug: "digital-marketing/full-funnel-digital-marketing",
+  parent: "digital-marketing",
+  icon: Megaphone,
+  category: "Full Funnel",
+  title: "Full funnel digital marketing",
+  accent: "orchestrated against revenue.",
+  lede: "Paid, organic, content, email, influencer and lifecycle working as one system, tied to a single revenue dashboard.",
+  intro: {
+    heading: "Channels are inputs. Revenue is the output. Most marketing teams optimise the inputs and lose sight of the output.",
+    body: [
+      "Google Ads, Meta, TikTok, SEO, content, email, influencer, lifecycle. Every one is a specialism. Most agencies sell you one and pretend the others do not exist. Which is why so many brands end up with five vendors, five dashboards, five conflicting reports and no clear picture of what is actually moving the business.",
+      "Full funnel means one team, one strategy, one revenue dashboard. Channels are hired and fired against contribution to blended growth, not against their own vanity metrics.",
+    ],
+  },
+  whatItIs: {
+    heading: "The shape of a proper full funnel program",
+    body: [
+      "Top of funnel that captures demand you have not yet earned, mid funnel that nurtures and educates, bottom of funnel that converts, and lifecycle that retains and expands. Each stage measured by the metric that matters at that stage, and stitched together by a single view of contribution to revenue.",
+    ],
+  },
+  architecture: {
+    heading: "The four layers we build in every engagement",
+    body: "Each layer has different channels, metrics and cadence.",
+    layers: [
+      { name: "Top of funnel", items: ["Meta and TikTok prospecting", "YouTube", "Content and SEO for awareness terms", "Influencer and PR"] },
+      { name: "Mid funnel", items: ["Non brand search", "Retargeting", "Email for warm leads", "Case studies and demos"] },
+      { name: "Bottom of funnel", items: ["Brand search", "Direct traffic optimisation", "Sales enablement", "Landing pages per offer"] },
+      { name: "Lifecycle", items: ["Onboarding sequences", "Cross sell and upsell", "Winback and reactivation", "Loyalty and referral"] },
+    ],
+  },
+  features: {
+    heading: "What a real full funnel program includes",
+    body: "The connective tissue that most agencies skip.",
+    items: [
+      { title: "Unified data model", desc: "Sessions, users, conversions and revenue in one place, tied together with server side tracking." },
+      { title: "Blended reporting", desc: "MER, blended CAC, blended ROAS across all paid and organic. Platform ROAS relegated to a supporting metric." },
+      { title: "Media mix framework", desc: "Budget allocated across channels based on incremental contribution, not platform reported ROAS." },
+      { title: "Creative brief system", desc: "One brief system feeds paid, organic and lifecycle so the brand and story stay consistent." },
+      { title: "CRO baseline", desc: "Landing pages, PDPs and checkout continuously tested and improved. Not a one off." },
+      { title: "Lifecycle engine", desc: "Email and SMS flows tuned to specific customer states, not batch and blast." },
+      { title: "Cross channel calendar", desc: "Every launch, promotion or announcement coordinated so paid, organic, email and influencer amplify each other." },
+      { title: "Executive dashboard", desc: "One dashboard, the leadership team sees the same numbers as the marketers." },
+    ],
+  },
+  approaches: {
+    heading: "Three engagement models",
+    body: "Pick the shape that matches how integrated you are ready to be.",
+    options: [
+      { name: "Fractional CMO plus execution", best: "Growth stage brands without a senior marketing leader in house", watch: "Only works if leadership is ready to trust one team with strategy" },
+      { name: "Channel led with strategic overlay", best: "Brands with a marketing lead who wants execution across paid and lifecycle", watch: "Requires clear ownership of strategy internally" },
+      { name: "Project by project", best: "Established teams needing specific execution support", watch: "Loses the integration benefit that makes full funnel worth it" },
+    ],
+  },
+  mistakes: {
+    heading: "The full funnel mistakes we help fix",
+    items: [
+      { title: "Fragmenting across vendors", desc: "Five agencies, five reports, no accountability for the number that matters." },
+      { title: "Optimising per channel", desc: "Meta wins, Google loses, blended revenue flat. Nothing improved." },
+      { title: "Ignoring lifecycle", desc: "The cheapest revenue in your business, treated as an afterthought." },
+      { title: "No content muscle", desc: "Paid alone gets expensive fast. Organic and content compound the base." },
+      { title: "Reporting theater", desc: "Colourful dashboards that no one uses to make decisions." },
+      { title: "Not building brand", desc: "Every performance ad borrows against brand. Brand starves. Performance costs climb." },
+    ],
+  },
+  considerations: {
+    heading: "The organisational realities that determine success",
+    body: "Full funnel does not work without the right internal setup.",
+    items: [
+      { title: "One decision maker on your side", desc: "Someone with authority to trade budget across channels weekly." },
+      { title: "Real access to data", desc: "The revenue database, not just Shopify or Stripe reports." },
+      { title: "A commitment to iteration", desc: "Nothing works out of the box. Compounding requires patience." },
+      { title: "Creative capacity", desc: "Every serious full funnel program is a creative operation with a media budget." },
+      { title: "Executive alignment", desc: "The leadership team must understand blended metrics, not platform ROAS." },
+    ],
+  },
+  fit: {
+    good: [
+      "Growth stage brands ready to consolidate marketing under one team",
+      "Multi channel businesses where paid and organic already exist but are siloed",
+      "Executives who want a single number to hold marketing accountable to",
+    ],
+    notFor: [
+      "Early stage brands not yet spending meaningful media",
+      "Teams that want channel specific execution only",
+      "Businesses without any conversion tracking infrastructure",
+    ],
+  },
+  scenarios: [
+    { role: "DTC brand at eight figures", body: "Meta, Google, TikTok, SEO, lifecycle and influencer under one strategy, one blended dashboard, weekly cross channel review." },
+    { role: "B2B SaaS scaling to Series B", body: "Content and SEO for TOFU, paid nurture with LinkedIn and retargeting, sales enablement content and lifecycle for onboarding and expansion." },
+    { role: "Regional consumer brand", body: "Local paid, regional SEO, influencer and event driven campaigns coordinated to local calendars per market." },
+  ],
+  faqs: [
+    { q: "Can we start with just one channel?", a: "Yes. Many engagements start there and expand as trust is built and results compound." },
+    { q: "How do you report on blended metrics?", a: "A live dashboard with MER, blended CAC, blended ROAS by cohort, and platform level breakdowns for diagnostics." },
+    { q: "Do we need to give you access to our CRM and revenue data?", a: "Yes. Otherwise blended reporting is impossible and we would be guessing." },
+    { q: "How long is a typical engagement?", a: "Ninety day foundation phase, then month to month with a quarterly strategic review." },
+    { q: "What does staffing look like?", a: "A senior strategist, channel specialists and a creative operations lead, all senior." },
+    { q: "How do you avoid becoming yet another vendor?", a: "By taking responsibility for the outcome number. If MER does not move, we do not stay." },
+  ],
+  seo: {
+    title: "Full Funnel Digital Marketing, integrated growth teams | Origami99",
+    description: "Paid, organic, content, email, influencer and lifecycle working as one system, tied to a single revenue dashboard. One senior team, one number.",
+  },
+};
+
+const video: SubServicePage = {
+  slug: "digital-marketing/video-editing-production",
+  parent: "digital-marketing",
+  icon: Video,
+  category: "Video and Motion",
+  title: "Video and motion production",
+  accent: "engineered for retention.",
+  lede: "Ads, brand films, product videos and motion graphics produced by an in house studio, briefed against performance.",
+  intro: {
+    heading: "Video is the highest leverage medium in marketing. It is also the easiest to spend money on badly.",
+    body: [
+      "A great video ad can generate seven figures of revenue. A bad one costs the same to produce. The difference is not budget. It is process. Every video we produce is briefed against a specific job (top of funnel hook, product demo, testimonial, retargeting angle, launch film) and measured against a specific metric.",
+      "Creative directed by intent, not by aesthetic preference. That is what makes video pay for itself.",
+    ],
+  },
+  whatItIs: {
+    heading: "The video work our studio actually does",
+    body: [
+      "Short form performance ads for Meta, TikTok, Reels and Shorts. Long form YouTube content. Brand films for launches and about pages. Product demos and explainers. Customer stories and case study videos. Motion graphics for social and product marketing. All produced with a shared brief system that connects every asset to a business outcome.",
+    ],
+  },
+  architecture: {
+    heading: "How we run a production",
+    body: "Six phases, each with a deliverable, each signed off before we move on.",
+    layers: [
+      { name: "Brief", items: ["What job the video does", "Audience and channel", "Success metric", "Creative direction"] },
+      { name: "Concept", items: ["Two or three angles", "Storyboards", "Script or beat sheet"] },
+      { name: "Pre production", items: ["Casting", "Locations", "Props and wardrobe", "Shot list"] },
+      { name: "Production", items: ["Direction", "Cinematography", "Sound", "B roll"] },
+      { name: "Post", items: ["Edit", "Colour", "Sound design", "Motion graphics", "Localised versions"] },
+      { name: "Delivery", items: ["Aspect ratios per channel", "Caption files", "Master and archive", "Handover pack"] },
+    ],
+  },
+  features: {
+    heading: "What comes with every production",
+    body: "The details that separate a good asset from an expensive one.",
+    items: [
+      { title: "Multi format delivery", desc: "9:16, 1:1, 16:9, plus channel specific durations. One shoot, many assets." },
+      { title: "Native captions", desc: "Burned in and SRT files. 80 percent of social video is watched muted." },
+      { title: "Localisation ready", desc: "Voiceovers, subtitles and text overlays swappable per region." },
+      { title: "Variation testing", desc: "Every hero ad shot with three hook variants for creative testing." },
+      { title: "Sound design intentional", desc: "Original score or licensed music, sound effects and voice all mixed to spec." },
+      { title: "Colour and grade discipline", desc: "Consistent look across your library, not a random palette per shoot." },
+      { title: "Motion identity", desc: "Consistent transitions, lower thirds and animation across every video." },
+      { title: "Archive and handover", desc: "All project files, raw footage and licences delivered to you at the end." },
+    ],
+  },
+  approaches: {
+    heading: "Three production models",
+    body: "Match the model to the ambition.",
+    options: [
+      { name: "Weekly ads engine", best: "Performance driven brands needing constant creative refresh", watch: "Requires disciplined brief and rapid iteration" },
+      { name: "Project based hero content", best: "Launches, brand films, campaign centrepieces", watch: "Longer timelines, higher unit cost" },
+      { name: "Hybrid engine plus hero", best: "Mature brands wanting weekly ads plus quarterly hero content", watch: "Needs a senior creative lead to keep the two aligned" },
+    ],
+  },
+  mistakes: {
+    heading: "Six video mistakes that quietly waste budgets",
+    items: [
+      { title: "Skipping the brief", desc: "Producing video without a clear job wastes everything downstream." },
+      { title: "Overshooting", desc: "Endless coverage produces mediocre edits. Shoot to the storyboard." },
+      { title: "Ignoring the platform", desc: "A TV ad on TikTok is a scroll. Native format matters." },
+      { title: "Weak first three seconds", desc: "The hook is 80 percent of the outcome. Design it deliberately." },
+      { title: "One version per shoot", desc: "You should leave every shoot with three to five distinct variants." },
+      { title: "No measurement plan", desc: "Video that is not measured is not learned from." },
+    ],
+  },
+  considerations: {
+    heading: "The realities most teams underestimate",
+    body: "Great video is a system, not a shoot.",
+    items: [
+      { title: "Creative direction is a discipline", desc: "The best videos have one voice, not a committee's compromise." },
+      { title: "Consistency beats one hero", desc: "A steady library outperforms a single expensive spot for most brands." },
+      { title: "Editing is where the ad wins", desc: "A great cut can save mediocre footage. A bad cut cannot save great footage." },
+      { title: "Music and pace are half the ad", desc: "Sound design decisions are as important as visuals." },
+      { title: "Casting matters more than budget", desc: "The right face and voice beats the biggest lighting kit." },
+    ],
+  },
+  fit: {
+    good: [
+      "Brands running weekly paid social",
+      "Businesses needing hero brand films for launches",
+      "Ecommerce needing consistent product and demo video",
+      "SaaS with product demos, explainers and customer stories",
+    ],
+    notFor: [
+      "Teams unwilling to brief creative properly",
+      "Projects seeking cheap templated stock video (better handled by internal or freelance)",
+      "One off unrelated to any broader marketing strategy",
+    ],
+  },
+  scenarios: [
+    { role: "Weekly ad engine for a DTC brand", body: "Studio produces 20 to 40 assets per month across UGC style, hero and motion, iterating against paid social performance." },
+    { role: "Launch film for a SaaS product", body: "Brand film, product demo, three vertical cut downs, plus a series of feature explainers, all shipped for a launch week." },
+    { role: "Customer story series", body: "Six customer stories filmed over a quarter, edited for LinkedIn, YouTube and sales enablement." },
+  ],
+  faqs: [
+    { q: "Do you handle everything from script to delivery?", a: "Yes. Brief, concept, script, production, edit, motion, colour, sound, delivery." },
+    { q: "Can you shoot internationally?", a: "Yes, with local partners in most major markets, or by flying our team." },
+    { q: "How fast can you turn around ads?", a: "Weekly ad engines produce first cuts within days of shoot. Hero content follows a longer cycle." },
+    { q: "Do you provide UGC style creators?", a: "Yes, both dedicated UGC creators and larger creator partnerships." },
+    { q: "Who owns the footage and files?", a: "You do. All rushes, project files, licences and cleared music transferred at delivery." },
+    { q: "Can you work with our existing brand guidelines?", a: "Yes. We adapt to what exists or extend it into motion, whichever the brand needs." },
+  ],
+  seo: {
+    title: "Video Editing and Production, ads and brand films that convert | Origami99",
+    description: "Performance ads, brand films, product videos and motion graphics produced by an in house studio, briefed against retention and revenue.",
+  },
+};
+
+// -------------------------- Registry --------------------------
+
+export const SUB_SERVICES: SubServicePage[] = [
+  customSoftware, saas, mobile, uiux, erp,
+  customWeb, shopify, wordpress, webflowFramer, wix,
+  googleAds, metaAds, tiktokAds, fullFunnel, video,
+];
+
+export function getSubService(slug: string): SubServicePage | undefined {
+  return SUB_SERVICES.find((s) => s.slug === slug);
+}
+
+export function getSubServicesFor(parent: SubServicePage["parent"]): SubServicePage[] {
+  return SUB_SERVICES.filter((s) => s.parent === parent);
+}

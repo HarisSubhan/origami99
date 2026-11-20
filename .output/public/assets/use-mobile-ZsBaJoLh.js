@@ -1,0 +1,1 @@
+import{t as o}from"./index-BRKNEHGX.js";const e=768;function a(){const[s,t]=o.useState(void 0);return o.useEffect(()=>{const n=window.matchMedia(`(max-width: ${e-1}px)`),i=()=>{t(window.innerWidth<e)};return n.addEventListener("change",i),t(window.innerWidth<e),()=>n.removeEventListener("change",i)},[]),!!s}export{a as u};
